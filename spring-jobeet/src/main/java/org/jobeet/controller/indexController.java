@@ -14,7 +14,7 @@ public class indexController {
 	@RequestMapping(value="/")
 	public String index(){
 		if(logger.isDebugEnabled()){
-			logger.debug("Hemos entrado en index");
+			logger.info("Hemos entrado en index");
 		}
 		
 		return "index"; 
@@ -23,7 +23,7 @@ public class indexController {
 	@RequestMapping(value="/hello", method = RequestMethod.GET)
 	public String printHello(ModelMap model) {
 		if(logger.isDebugEnabled()){
-			logger.debug("Hemos entrado en hello");
+			logger.info("Hemos entrado en hello");
 		}
 		model.addAttribute("message", "Hello Spring MVC Framework!");
 		return "hello";

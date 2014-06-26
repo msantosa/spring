@@ -24,6 +24,10 @@
 <!-- Se define la página de inicio de la aplicación 
 <mvc:view-controller path="/" view-name="index" />-->
 
+<!--  <mvc:resources mapping="resources/css/**" location="/css/" />
+<mvc:resources mapping="resources/images/**" location="/images/" />
+<mvc:resources mapping="resources/js/**" location="/js/" />-->
+
 <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
  <property name="viewClass"
  value="org.springframework.web.servlet.view.JstlView" />
@@ -64,6 +68,7 @@
 	 </props>
 	 </property>
  </bean>
+ 
 <tx:annotation-driven />
 
 <bean id="transactionManager"
