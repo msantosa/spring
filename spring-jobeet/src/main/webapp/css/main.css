@@ -32,12 +32,12 @@ body
 {
   margin-left: auto;
   margin-right: auto;
-  background: #fff url(../images/bg-page.png) bottom repeat-x;
+  background: #fff url(../legacy/images/bg-page.png) bottom repeat-x;
 }
 
 #header
 {
-  background: url(../images/bg-header.jpg) repeat-x top;
+  background: url(../legacy/images/bg-header.jpg) repeat-x top;
 }
 
 #header h1
@@ -51,7 +51,7 @@ body
   display: block;
   width: 150px;
   height: 110px;
-  background: url(../images/logo.jpg) no-repeat;
+  background: url(../legacy/images/logo.jpg) no-repeat;
 }
 
 
@@ -69,7 +69,7 @@ body
 
 #sub_header .search input
 {
-  background: url(../images/button-search.jpg) no-repeat;
+  background: url(../legacy/images/button-search.jpg) no-repeat;
   text-indent: -9999px;
   border: 0;
   width: 95px;
@@ -97,7 +97,7 @@ body
   width: 579px;
   height: 27px;
   border: 0;
-  background: url(../images/search-box.jpg);
+  background: url(../legacy/images/search-box.jpg);
   text-indent: 0;
   color: #666;
 }
@@ -110,7 +110,7 @@ body
 #sub_header .post div a
 {
   display: block;
-  background: url(../images/button-post.jpg);
+  background: url(../legacy/images/button-post.jpg);
   text-indent: -9999px;
   width: 150px;
   height: 48px;
@@ -129,7 +129,7 @@ body
 
 #sub_header
 {
-  background: url(../images/bg-subheader.gif) bottom;
+  background: url(../legacy/images/bg-subheader.gif) bottom;
   width: 783px;
   height: 128px;
   margin: 0 auto;
@@ -147,7 +147,7 @@ body
 
 #sub_header .search h2
 {
-  background: url(../images/header-job.jpg) no-repeat;
+  background: url(../legacy/images/header-job.jpg) no-repeat;
   height: 23px;
   width: 250px;
   margin-bottom: 7px;
@@ -166,7 +166,7 @@ body
   padding: 0px 15px;
   font-size: 124%;
   text-transform: uppercase;
-  background: url(../images/bg-listheader.gif) no-repeat;
+  background: url(../legacy/images/bg-listheader.gif) no-repeat;
   line-height: 32px;
   color: #fff;
 }
@@ -186,7 +186,7 @@ body
   font-size: 90%;
   margin-bottom: 0px;
   height: 153px;
-  background: url(../images/bg-footer.jpg) repeat-x bottom;
+  background: url(../legacy/images/bg-footer.jpg) repeat-x bottom;
   padding-top: 10px;
   position: relative;
 }
@@ -269,7 +269,7 @@ body
 .feed
 {
   padding-left: 20px;
-  background: transparent url(../images/feed.png) no-repeat 0 0;
+  background: transparent url(../legacy/images/feed.png) no-repeat 0 0;
 }
 
 .help

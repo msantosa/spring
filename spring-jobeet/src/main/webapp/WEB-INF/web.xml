@@ -20,7 +20,16 @@
 	<!-- Map all requests to the DispatcherServlet for handling -->
 	<servlet-mapping>
 		<servlet-name>spring-jobeet</servlet-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet-mapping>
+	    <servlet-name>default</servlet-name>
+	    <url-pattern>*.png</url-pattern>
+	    <url-pattern>*.jpg</url-pattern>
+	    <url-pattern>*.js</url-pattern>
+	    <url-pattern>*.css</url-pattern>
 	</servlet-mapping>
   
 </web-app>
