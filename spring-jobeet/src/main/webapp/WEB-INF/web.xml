@@ -20,7 +20,7 @@
 	<!-- Map all requests to the DispatcherServlet for handling -->
 	<servlet-mapping>
 		<servlet-name>spring-jobeet</servlet-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
   
 </web-app>
