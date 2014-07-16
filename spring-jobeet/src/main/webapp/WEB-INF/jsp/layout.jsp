@@ -6,14 +6,19 @@
   <head>
     <title><tiles:insertAttribute name="title" ignore="true" /></title>
     <link rel="shortcut icon" href="/favicon.ico" />  
-    <link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet" type="text/css" />
+    <tiles:useAttribute id="list" name="ListCss" classname="java.util.List" />
+	<c:forEach var="item" items="${list}">
+	 	<link href="${ctx}${item}" rel="stylesheet" type="text/css"> 
+	</c:forEach>
   </head>
   <body>
     <div id="container">
       <tiles:insertAttribute name="header" />
       
       <div id="content">
-      	<tiles:insertAttribute name="body" />
+      	<div class="content">
+      		<tiles:insertAttribute name="body" />
+      	</div>
       </div>
       
  	  <tiles:insertAttribute name="footer" />

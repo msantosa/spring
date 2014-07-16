@@ -5,7 +5,7 @@
 
 <hibernate-configuration>
  <session-factory>
- 	<mapping class="org.jobeet.model.Afiliado" />
+ 	<mapping class="org.jobeet.model.JobeetAffiliate" />
+ 	<mapping class="org.jobeet.model.JobeetCategory" />
  </session-factory>
-
 </hibernate-configuration>

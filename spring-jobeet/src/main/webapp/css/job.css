@@ -96,3 +96,14 @@
   margin-right: 10px;
   font-size: 85%;
 }
+
+#job div
+{
+	margin: .4em 0;
+}
+
+#job div label
+{
+	width: 20%;
+	float: left
+}

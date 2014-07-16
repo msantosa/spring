@@ -1,14 +1,14 @@
 <div id="header">
 	<div class="content">
-    	<h1><a href="#">
+    	<h1><a href="${pageContext.request.contextPath}">
         	<img src="/legacy/images/logo.jpg" alt="Jobeet Job Board" />
         </a></h1>
  
        	<div id="sub_header">
         	<div class="post">
-            	<h2>Ask for people3</h2>
+            	<h2>Ask for people</h2>
             	<div>
-                	<a href="#">Post a Job <s:url value="${pageContext.request.contextPath}/css/main.css" /></a>
+                	<a href="${pageContext.request.contextPath}/newJob">Post a Job /></a>
               	</div>
             </div>
  

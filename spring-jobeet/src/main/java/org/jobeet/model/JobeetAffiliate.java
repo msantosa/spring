@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Afiliado")
-public class Afiliado {
+@Table(name="JobeetAffiliate")
+public class JobeetAffiliate {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

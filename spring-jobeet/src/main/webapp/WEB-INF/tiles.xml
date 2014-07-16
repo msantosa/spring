@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE tiles-definitions PUBLIC
-       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
-       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 <tiles-definitions>
     <definition name="base.definition"
         template="/WEB-INF/jsp/layout.jsp">
@@ -9,17 +9,30 @@
         <put-attribute name="header" value="/WEB-INF/jsp/header.jsp" />
         <put-attribute name="body" value="" />
         <put-attribute name="footer" value="/WEB-INF/jsp/footer.jsp" />
+        <put-list-attribute name="ListCss">
+		    <add-attribute value="/css/main.css" />
+		</put-list-attribute>
     </definition>
  
     <definition name="index" extends="base.definition">
         <put-attribute name="title" value="Jobeet - Your best job board" />
         <put-attribute name="body" value="/WEB-INF/jsp/index.jsp" />
+        <put-list-attribute name="ListCss" inherit="true">
+		    <add-attribute value="/css/jobs.css" />
+		</put-list-attribute>
     </definition>
-    
     
     <definition name="hello" extends="base.definition">
         <put-attribute name="title" value="Jobeet - Your best job board" />
         <put-attribute name="body" value="/WEB-INF/jsp/hello.jsp" />
     </definition>
- 
+    
+    <definition name="newjob" extends="base.definition">
+        <put-attribute name="title" value="Jobeet - Your best job board" />
+        <put-attribute name="body" value="/WEB-INF/jsp/newjob.jsp" />
+        <put-list-attribute name="ListCss" inherit="true">
+		    <add-attribute value="/css/job.css" />
+		</put-list-attribute>
+    </definition>
+
 </tiles-definitions>

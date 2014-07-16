@@ -28,5 +28,12 @@ public class indexController {
 		model.addAttribute("message", "Hello Spring MVC Framework!");
 		return "hello";
 	}
-
+	
+	@RequestMapping(value="/newJob", method = RequestMethod.GET)
+	public String newJob(ModelMap model) {
+		if(logger.isDebugEnabled()){
+			logger.info("Hemos entrado en newJob");
+		}
+		return "newjob";
+	}
 }
