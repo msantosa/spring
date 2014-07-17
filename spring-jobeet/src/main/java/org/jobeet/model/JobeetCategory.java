@@ -23,7 +23,7 @@ public class JobeetCategory {
 	@Column(name="created_at")
 	private Date created_at;
 
-	@Column(name="update_at")
+	@Column(name="updated_at")
 	private Date updated_at;
 
 	@Column(name="slug", unique=true)
