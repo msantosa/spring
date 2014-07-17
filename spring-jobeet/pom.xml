@@ -27,21 +27,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>1.15</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>report</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
+				<version>${jacoco.version}</version>
 			</plugin>
 		</plugins>
 	</build>
@@ -152,5 +138,6 @@
 		<org.springframework.version>4.0.0.RELEASE</org.springframework.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<tiles.version>2.2.2</tiles.version>
+		<jacoco.version>0.7.0.201403182114</jacoco.version>
 	</properties>
 </project>
