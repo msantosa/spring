@@ -7,11 +7,11 @@ import org.jobeet.dao.ICategoryDao;
 import org.jobeet.dao.impl.CategoryDaoImpl;
 import org.jobeet.model.JobeetCategory;
 import org.jobeet.service.ICategoryService;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 public class CategoryServiceImpl implements ICategoryService{
 	
 	private ICategoryDao categoryDAO; 
@@ -24,16 +24,22 @@ public class CategoryServiceImpl implements ICategoryService{
 	public JobeetCategory getCategoryById(int idCategoria){
 		return null;
 	}
+	
+	@Transactional(readOnly = false)
 	public ICategoryDao getCategoryDAO() {
 		return categoryDAO;
 	}
+	
+	@Transactional(readOnly = true)
 	public void setCategoryDAO(ICategoryDao categoryDAO) {
 		this.categoryDAO = categoryDAO;
 	}
+	
+	@Transactional(readOnly = true)
 	public List listAllCategory(){
-		LOGGER.debug("CategoryServiceImpl listAllCategory <-- Entrada");
+		LOGGER.info("CategoryServiceImpl listAllCategory <-- Entrada");
 		List listaCategoria= getCategoryDAO().listAllCategory();
-		LOGGER.debug("CategoryServiceImpl listAllCategory --> Salida");
+		LOGGER.info("CategoryServiceImpl listAllCategory --> Salida");
 		return listaCategoria;
 	}
 }

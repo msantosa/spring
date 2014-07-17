@@ -8,11 +8,15 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.jobeet.dao.ICategoryDao;
 import org.jobeet.model.JobeetCategory;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+@Repository
 public class CategoryDaoImpl implements ICategoryDao{
 	
 	private SessionFactory sessionFactory;
+	
+	private static final Logger LOGGER = Logger.getLogger(CategoryDaoImpl.class);
 	
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
@@ -20,12 +24,11 @@ public class CategoryDaoImpl implements ICategoryDao{
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
-	private static final Logger LOGGER = Logger.getLogger(CategoryDaoImpl.class);
 	
 	public void addCategory(JobeetCategory categoria){
 		
 	}
+
 	public JobeetCategory getCategoryById(int idCategoria){
 		return null;
 	}
@@ -33,9 +36,10 @@ public class CategoryDaoImpl implements ICategoryDao{
 	public List listAllCategory(){
 		/*DetachedCriteria criteria = DetachedCriteria.forClass(JobeetCategory.class);
 		return getHibernateTemplate().findByCriteria(criteria);*/
-		LOGGER.debug("CategoryDaoImpl listAllCategory <-- Entrada");
+		LOGGER.info("CategoryDaoImpl listAllCategory <-- Entrada");
 		List listaCategoria=sessionFactory.getCurrentSession().createCriteria(JobeetCategory.class).list();
-		LOGGER.debug("CategoryDaoImpl listAllCategory --> Salida");
+		LOGGER.info("Tamaño de lista="+listaCategoria.size());
+		LOGGER.info("CategoryDaoImpl listAllCategory --> Salida");
 		return listaCategoria;
 	}
 }
