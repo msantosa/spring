@@ -1,38 +1,63 @@
 package org.jobeet.model;
 
 import java.sql.Timestamp;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="jobeetjob")
 public class JobeetJob {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="id", nullable=false)
 	private int id;
 	
+	@Column(name="category_id", nullable=true)
 	private int category_id;
 	
+	@Column(name="type", nullable=true)
 	private String type;
 	
+	@Column(name="company", nullable=false)
 	private String company;
 	
+	@Column(name="logo", nullable=true)
 	private String logo;
 	
+	@Column(name="url", nullable=true)
+	private String url;
+	
+	@Column(name="position", nullable=false)
 	private String position;
 	
+	@Column(name="location", nullable=false)
 	private String location;
 	
+	@Column(name="description", nullable=false)
 	private String description;
 	
+	@Column(name="how_to_apply", nullable=false)
 	private String how_to_apply;
 	
+	@Column(name="token", unique=true, nullable=false)
 	private String token;
 	
-	private boolean is_public=true;
+	@Column(name="is_public", nullable=false)
+	private boolean is_public;
 	
-	private boolean is_actived=false;
+	@Column(name="is_actived", nullable=false)
+	private boolean is_actived;
 	
+	@Column(name="email", nullable=false)
 	private String email;
 	
+	@Column(name="expires_at", nullable=false)
 	private Timestamp expires_at;
 
 	public int getId() {
@@ -75,6 +100,14 @@ public class JobeetJob {
 		this.logo = logo;
 	}
 
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}	
+	
 	public String getPosition() {
 		return position;
 	}
@@ -123,14 +156,6 @@ public class JobeetJob {
 		this.is_public = is_public;
 	}
 
-	public boolean isIs_actived() {
-		return is_actived;
-	}
-
-	public void setIs_actived(boolean is_actived) {
-		this.is_actived = is_actived;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -139,11 +164,19 @@ public class JobeetJob {
 		this.email = email;
 	}
 
+	public boolean isIs_actived() {
+		return is_actived;
+	}
+
+	public void setIs_actived(boolean is_actived) {
+		this.is_actived = is_actived;
+	}
+
 	public Timestamp getExpires_at() {
 		return expires_at;
 	}
 
 	public void setExpires_at(Timestamp expires_at) {
 		this.expires_at = expires_at;
-	}	
+	}
 }

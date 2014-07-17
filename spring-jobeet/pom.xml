@@ -22,6 +22,7 @@
 					<url>http://localhost:8080/manager/text</url>
 					<server>TomcatServer</server>
 					<path>/spring-jobeet</path>
+					<update>true</update>
 				</configuration>
 			</plugin>
 			<plugin>

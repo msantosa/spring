@@ -1,47 +1,61 @@
+<%@ include file="/WEB-INF/jsp/include.jsp" %>
 <div id="job">
 	<h1>NEW JOB</h1>
-	<form:form method="post" action="">
+	<form:form method="post" action="addJob.html" commandName="trabajo">
 		<div>
-			<label>Category Id</label> <select name="Categorias">
-				<option value="Administrator">Administrator</option>
-				<option value="Programming">Programming</option>	
-			</select> 
+			<form:label path="category_id">Category Id</form:label> 
+			<form:select path="category_id">
+				<c:forEach var="categoria" items="${listaCategorias}" >
+					<option value="${categoria.id}" >${categoria.name}</option>
+				</c:forEach>	
+			</form:select> 
 		</div>
 		<div>
-			<label>Type</label> <input type="text" value=""> 
+			<form:label path="type">Type</form:label>
+			<form:input path="type"/>
 		</div>
 		<div>
-			<label>Company</label><input type="text" value="">
+			<form:label path="company">Company</form:label>
+			<form:input path="company" />
 		</div>
 		<div>
-			<label>Logo</label><input type="text" value="">
+			<form:label path="logo">Logo</form:label>
+			<form:input path="logo"/>
 		</div>
 		<div>
-			<label>Url</label><input type="text" value="">
+			<form:label path="url">Url</form:label>
+			<form:input path="url" />
 		</div>
 		<div>
-			<label>Position</label><input type="text" value="">
+			<form:label path="position">Position</form:label>
+			<form:input path="position"/>
 		</div>
 		<div>
-			<label>Location</label><input type="text" value="">
+			<form:label path="location">Location</form:label>
+			<form:input path="location" />
 		</div>
 		<div>
-			<label>Description</label><textarea name="description" rows="4" cols="50"></textarea>
+			<form:label path="description">Description</form:label>
+			<form:textarea path="description" rows="4" cols="50"/>
 		</div>
 		<div>
-			<label>How to apply</label><textarea name="how_to_apply" rows="4" cols="50"></textarea>
+			<form:label path="how_to_apply">How to apply</form:label>
+			<form:textarea path="how_to_apply" rows="4" cols="50"/>
 		</div>
 		<div>
-			<label>Is public</label><input type="checkbox" name="is_public" id="is_public" value="">
+			<form:label path="is_public">Is public</form:label>
+			<form:checkbox path="is_public" />
 		</div>
 		<div>
-			<label>Is activated</label><input type="checkbox" name="is_activated" id="is_activated" value="">
+			<form:label path="is_actived">Is public</form:label>
+			<form:checkbox path="is_actived" />
 		</div>
 		<div>
-			<label>Email</label><input type="email" value="">
+			<form:label path="email">Email</form:label>
+			<form:input path="email" type="email"/>
 		</div>
 		<div>
-			<label>Email</label><input type="email" value="">
+			<input type="submit" value="Añadir">
 		</div>
 	</form:form>
 </div>
