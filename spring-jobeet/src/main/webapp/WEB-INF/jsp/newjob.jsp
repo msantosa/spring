@@ -5,6 +5,7 @@
 		<div>
 			<form:label path="category_id">Category Id</form:label> 
 			<form:select path="category_id">
+				<option value="" selected="selected"></option>
 				<c:forEach var="categoria" items="${listaCategorias}" >
 					<option value="${categoria.id}" >${categoria.name}</option>
 				</c:forEach>	

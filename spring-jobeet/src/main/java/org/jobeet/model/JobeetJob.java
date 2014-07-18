@@ -7,7 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name="jobeetjob")
@@ -16,10 +20,12 @@ public class JobeetJob {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id", nullable=false)
-	private int id;
+	private Integer id;
 	
-	@Column(name="category_id", nullable=true)
-	private int category_id;
+	@ManyToOne(targetEntity=JobeetCategory.class)
+    @ForeignKey(name = "JobeetJob_category_fk")
+    @JoinColumn(name = "category_id")
+	private Integer category_id;
 	
 	@Column(name="type", nullable=true)
 	private String type;
@@ -59,20 +65,20 @@ public class JobeetJob {
 	
 	@Column(name="expires_at", nullable=false)
 	private Timestamp expires_at;
-
-	public int getId() {
+	
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getCategory_id() {
+	public Integer getCategory_id() {
 		return category_id;
 	}
 
-	public void setCategory_id(int category_id) {
+	public void setCategory_id(Integer category_id) {
 		this.category_id = category_id;
 	}
 

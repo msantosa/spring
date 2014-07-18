@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.jobeet.model.JobeetCategory;
 import org.jobeet.model.JobeetJob;
 import org.jobeet.service.ICategoryService;
+import org.jobeet.service.IJobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,6 +20,9 @@ public class JobController {
 
 	@Autowired
 	private ICategoryService CategoryService;
+	
+	@Autowired
+	private IJobService JobService;
 	
 	private static final Logger logger = Logger.getLogger(JobController.class);
 	
@@ -36,6 +40,8 @@ public class JobController {
 		/*CategoryService.addContact(contact);*/
 		logger.info("El identificador del job es "+trabajo.getId());
 		logger.info("El tipo del job es "+trabajo.getType());
+		JobService.addJob(trabajo);
+		logger.info("Después de guardar el trabajo");
 		return "redirect:/";
 	}
 }
