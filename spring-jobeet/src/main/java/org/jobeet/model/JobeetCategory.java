@@ -17,7 +17,7 @@ import javax.persistence.Table;
 public class JobeetCategory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="id")
+	@Column(name="id", nullable=false)
 	private Integer id;
 
 	@Column(name="name", nullable=false)
@@ -32,7 +32,7 @@ public class JobeetCategory {
 	@Column(name="slug", unique=true)
 	private String slug;
 	
-	@OneToMany(mappedBy="category_id", cascade= CascadeType.ALL)
+	@OneToMany(targetEntity=JobeetJob.class, mappedBy="category_id", cascade= CascadeType.ALL)
 	private Set<JobeetJob> trabajo;
 	
 	public Integer getId() {
