@@ -3,11 +3,11 @@
 	<h1>NEW JOB</h1>
 	<form:form method="post" action="addJob.html" commandName="trabajo">
 		<div>
-			<form:label path="category_id">Category Id</form:label> 
-			<form:select path="category_id">
+			<form:label path="category">Category Id</form:label> 
+			<form:select path="category">
 				<option value="" selected="selected"></option>
 				<c:forEach var="categoria" items="${listaCategorias}" >
-					<option value="${categoria.id}" >${categoria.name}</option>
+					<option value="${categoria}" >${categoria.name}</option>
 				</c:forEach>	
 			</form:select> 
 		</div>
@@ -48,8 +48,8 @@
 			<form:checkbox path="is_public" />
 		</div>
 		<div>
-			<form:label path="is_actived">Is public</form:label>
-			<form:checkbox path="is_actived" />
+			<form:label path="is_activated">Is public</form:label>
+			<form:checkbox path="is_activated" />
 		</div>
 		<div>
 			<form:label path="email">Email</form:label>
