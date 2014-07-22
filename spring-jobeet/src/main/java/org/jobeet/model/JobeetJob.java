@@ -1,9 +1,10 @@
 package org.jobeet.model;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,10 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ForeignKey;
-
 @Entity
-@Table(name="jobeetjob")
+@Table(name="Job")
 public class JobeetJob {
 
 	@Id
@@ -22,10 +21,15 @@ public class JobeetJob {
 	@Column(name="id", nullable=false)
 	private Integer id;
 	
-	@ManyToOne(targetEntity=JobeetCategory.class)
+	/*@ManyToOne(targetEntity=JobeetCategory.class)
     @ForeignKey(name = "JobeetJob_category_fk")
-    @JoinColumn(name = "category_id")
-	private Integer category_id;
+    @JoinColumn(name = "category_id")*/
+	//@Column(name="category_id")
+	//private Integer category_id;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "category_id", nullable = true)
+	private JobeetCategory category;
 	
 	@Column(name="type", nullable=true)
 	private String type;
@@ -57,14 +61,36 @@ public class JobeetJob {
 	@Column(name="is_public", nullable=false)
 	private boolean is_public;
 	
-	@Column(name="is_actived", nullable=false)
-	private boolean is_actived;
+	@Column(name="is_activated", nullable=false)
+	private boolean is_activated;
 	
 	@Column(name="email", nullable=false)
 	private String email;
 	
 	@Column(name="expires_at", nullable=false)
-	private Timestamp expires_at;
+	private Date expires_at;
+	
+	@Column(name="created_at", nullable=false)
+	private Date created_at;
+	
+	@Column(name="updated_at", nullable=true)
+	private Date updated_at;
+	
+	public Date getCreated_at() {
+		return created_at;
+	}
+
+	public void setCreated_at(Date created_at) {
+		this.created_at = created_at;
+	}
+
+	public Date getUpdated_at() {
+		return updated_at;
+	}
+
+	public void setUpdated_at(Date updated_at) {
+		this.updated_at = updated_at;
+	}
 	
 	public Integer getId() {
 		return id;
@@ -74,13 +100,13 @@ public class JobeetJob {
 		this.id = id;
 	}
 
-	public Integer getCategory_id() {
+	/*public Integer getCategory_id() {
 		return category_id;
 	}
 
 	public void setCategory_id(Integer category_id) {
 		this.category_id = category_id;
-	}
+	}*/
 
 	public String getType() {
 		return type;
@@ -170,19 +196,27 @@ public class JobeetJob {
 		this.email = email;
 	}
 
-	public boolean isIs_actived() {
-		return is_actived;
+	public boolean isIs_activated() {
+		return is_activated;
 	}
 
-	public void setIs_actived(boolean is_actived) {
-		this.is_actived = is_actived;
+	public void setIs_activated(boolean is_activated) {
+		this.is_activated = is_activated;
 	}
 
-	public Timestamp getExpires_at() {
+	public Date getExpires_at() {
 		return expires_at;
 	}
 
-	public void setExpires_at(Timestamp expires_at) {
+	public void setExpires_at(Date expires_at) {
 		this.expires_at = expires_at;
+	}
+
+	public JobeetCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(JobeetCategory category) {
+		this.category = category;
 	}
 }

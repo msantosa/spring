@@ -1,11 +1,11 @@
 package org.jobeet.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,26 +13,23 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="JobeetCategory")
+@Table(name="Category")
 public class JobeetCategory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="id", nullable=false)
+	@Column(name="id")
 	private Integer id;
 
 	@Column(name="name", nullable=false)
 	private String name;
 
-	@Column(name="created_at")
+	@Column(name="created_at", nullable=false)
 	private Date created_at;
 
-	@Column(name="updated_at")
+	@Column(name="updated_at", nullable=true)
 	private Date updated_at;
-
-	@Column(name="slug", unique=true)
-	private String slug;
 	
-	@OneToMany(targetEntity=JobeetJob.class, mappedBy="category_id", cascade= CascadeType.ALL)
+	@OneToMany(targetEntity=JobeetJob.class, fetch = FetchType.LAZY, mappedBy = "category")
 	private Set<JobeetJob> trabajo;
 	
 	public Integer getId() {
@@ -66,13 +63,4 @@ public class JobeetCategory {
 	public void setUpdated_at(Date updated_at) {
 		this.updated_at = updated_at;
 	}
-
-	public String getSlug() {
-		return slug;
-	}
-
-	public void setSlug(String slug) {
-		this.slug = slug;
-	}
-
 }

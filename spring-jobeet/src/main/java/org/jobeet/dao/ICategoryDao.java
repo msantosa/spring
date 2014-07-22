@@ -6,6 +6,7 @@ import org.jobeet.model.JobeetCategory;
 
 public interface ICategoryDao {
 	public void addCategory(JobeetCategory categoria);
+	public void deleteCategory(JobeetCategory categoria);
 	public JobeetCategory getCategoryById(int idCategoria);
 	public List<JobeetCategory> listAllCategory();
 }

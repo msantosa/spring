@@ -54,4 +54,8 @@
 	<bean id="categoryDAO" class="org.jobeet.dao.impl.CategoryDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	
+	<bean id="jobDAO" class="org.jobeet.dao.impl.JobDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 </beans>

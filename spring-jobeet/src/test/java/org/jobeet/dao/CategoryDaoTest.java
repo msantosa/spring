@@ -1,5 +1,6 @@
 package org.jobeet.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.jobeet.model.JobeetCategory;
@@ -26,6 +27,23 @@ public class CategoryDaoTest{
 		List<JobeetCategory> lista=categoryDAO.listAllCategory();
 		System.out.println("Número de elementos="+lista.size());
 		System.out.println("Fin el test testlistAllCategory");
+	}
+	
+	@Test
+	public void testSaveCategory() {
+		System.out.println("Iniciamos el test testSaveCategory");
+		JobeetCategory categoria1=new JobeetCategory();
+		categoria1.setName("categoria1");;
+		categoryDAO.addCategory(categoria1);
+		System.out.println("Fin el test testSaveCategory");
+	}
+	
+	@Test
+	public void testCategoryById() {
+		System.out.println("Iniciamos el test testCategoryById");
+		System.out.println("Categoria1="+categoryDAO.getCategoryById(1));
+		System.out.println("Categoria999="+categoryDAO.getCategoryById(999));
+		System.out.println("Fin el test testCategoryById");
 	}
 
 }
