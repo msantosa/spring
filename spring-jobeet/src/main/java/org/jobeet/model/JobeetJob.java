@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="Job")
 public class JobeetJob {
@@ -68,12 +70,15 @@ public class JobeetJob {
 	private String email;
 	
 	@Column(name="expires_at", nullable=false)
+	@DateTimeFormat(pattern = "dd/mm/yyyy hh:mm")
 	private Date expires_at;
 	
 	@Column(name="created_at", nullable=false)
+	@DateTimeFormat(pattern = "dd/mm/yyyy hh:mm")
 	private Date created_at;
 	
 	@Column(name="updated_at", nullable=true)
+	@DateTimeFormat(pattern = "dd/mm/yyyy hh:mm")
 	private Date updated_at;
 	
 	public Date getCreated_at() {

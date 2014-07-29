@@ -69,8 +69,6 @@ public class JobDaoTest{
 		
 		List<JobeetJob> listaJob=jobDAO.listAllJob();
 		
-		System.out.println("EL NOMBRE DE LA CATEGORIA ES="+((listaJob.get(0)).getCategory()).getName());
-		
 		System.out.println("Fin el test testSaveJob");
 	}
 	

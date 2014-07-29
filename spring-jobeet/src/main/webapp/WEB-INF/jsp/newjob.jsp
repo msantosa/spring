@@ -44,6 +44,10 @@
 			<form:textarea path="how_to_apply" rows="4" cols="50"/>
 		</div>
 		<div>
+			<form:label path="token">Token</form:label>
+			<form:input path="token"/>
+		</div>
+		<div>
 			<form:label path="is_public">Is public</form:label>
 			<form:checkbox path="is_public" />
 		</div>
@@ -54,6 +58,10 @@
 		<div>
 			<form:label path="email">Email</form:label>
 			<form:input path="email" type="email"/>
+		</div>
+		<div>
+			<form:label path="expires_at">Expires_at</form:label>
+			<form:input type="datetime-local" value="01/01/2000T00:00" path="expires_at" name="type-datetime" id="type-datetime" />
 		</div>
 		<div>
 			<input type="submit" value="Añadir">
