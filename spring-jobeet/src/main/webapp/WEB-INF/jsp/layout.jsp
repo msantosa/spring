@@ -10,6 +10,10 @@
 	<c:forEach var="item" items="${list}">
 	 	<link href="${ctx}${item}" rel="stylesheet" type="text/css"> 
 	</c:forEach>
+	<tiles:useAttribute id="listJs" name="ListJS" classname="java.util.List" />
+	<c:forEach var="item" items="${listJs}">
+	 	<script type="text/javascript" src="${ctx}${item}"></script>
+	</c:forEach>
   </head>
   <body>
     <div id="container">

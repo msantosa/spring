@@ -79,5 +79,20 @@ public class JobDaoTest{
 		System.out.println("Categoria999="+jobDAO.getJobById(999));
 		System.out.println("Fin el test testJobById");
 	}
+	
+	@Test
+	public void testListarTrabajosActivos() {
+		System.out.println("Iniciamos el test testlistarTrabajosActivos");
+		List <JobeetJob> lista=jobDAO.listarTrabajosActivos();
+		if(lista!=null){
+			System.out.println("Tamaño de lista="+lista.size());
+			for(int i=0;i<lista.size();i++){
+				System.out.println("Location="+((JobeetJob)lista.get(i)).getLocation());
+				System.out.println("Position="+((JobeetJob)lista.get(i)).getPosition());
+				System.out.println("Company="+((JobeetJob)lista.get(i)).getCompany());
+			}
+		}
+		System.out.println("Fin el test testlistarTrabajosActivos");
+	}
 
 }

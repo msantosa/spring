@@ -9,4 +9,5 @@ public interface IJobService {
 	public void addJob(JobeetJob trabajo);
 	public JobeetJob getJObById(int idJob);
 	public List<JobeetJob> listAllJob();
+	public List<JobeetJob> listarTrabajosActivos();
 }

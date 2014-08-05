@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Property;
 import org.jobeet.dao.IJobDao;
 import org.jobeet.model.JobeetJob;
 
@@ -50,6 +51,9 @@ public class JobDaoImpl implements IJobDao {
 	
 	public void deleteJob(JobeetJob trabajo) {
 		// TODO Auto-generated method stub
+		LOGGER.info("JobDaoImpl --> Entrada en deleteJob");
+		sessionFactory.getCurrentSession().delete(trabajo);
+		LOGGER.info("JobDaoImpl --> Salida en deleteJob");
 		
 	}
 
@@ -66,6 +70,16 @@ public class JobDaoImpl implements IJobDao {
 			LOGGER.info("Tamaño de lista="+listaTrabajo.size());
 		LOGGER.info("JobDaoImpl listAllCategory --> Salida");
 		return listaTrabajo;
+	}
+	
+	public List<JobeetJob> listarTrabajosActivos(){
+		LOGGER.info("JobDaoImpl listarTrabajosActivos <-- Entrada");
+		List listaTrabajos=sessionFactory.getCurrentSession().createCriteria(JobeetJob.class)
+				.addOrder( Property.forName("created_at").desc() )     
+				.setMaxResults(10).list() ;
+		LOGGER.info("JobDaoImpl listarTrabajosActivos <-- Salida");
+		
+		return listaTrabajos;
 	}
 
 }

@@ -1,10 +1,8 @@
 package org.jobeet.controller;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
-import org.jobeet.model.JobeetCategory;
 import org.jobeet.service.ICategoryService;
+import org.jobeet.service.IJobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,14 +15,19 @@ public class IndexController {
 	@Autowired
 	private ICategoryService CategoryService;
 	
+	@Autowired
+	private IJobService JobService;
+	
 	private static final Logger logger = Logger.getLogger(IndexController.class);
 	
 	@RequestMapping(value="/")
-	public String index(){
+	public String index(ModelMap model){
 		if(logger.isDebugEnabled()){
 			logger.info("Hemos entrado en index");
 		}
-		
+		logger.info("Recuperamos el listado de trabajos activos");
+		model.addAttribute("listaTrabajosActivos",JobService.listarTrabajosActivos());
+		logger.info("Se han recuperado los trabajos. Hacemos redirect");
 		return "index"; 
 	}
 	

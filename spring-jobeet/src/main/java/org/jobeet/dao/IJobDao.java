@@ -9,4 +9,5 @@ public interface IJobDao {
 	public void deleteJob(JobeetJob trabajo);
 	public JobeetJob getJobById(int idTrabajo);
 	public List<JobeetJob> listAllJob();
+	public List<JobeetJob> listarTrabajosActivos();
 }

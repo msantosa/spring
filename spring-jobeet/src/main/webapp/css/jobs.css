@@ -27,9 +27,14 @@
 {
 }
 
-.jobs tr:hover
+.jobs tr.even:hover
 {
   background-color: #fff;
+}
+
+.jobs tr.odd:hover
+{
+  background-color: #f3fafc;
 }
 
 .jobs td

@@ -51,4 +51,10 @@ public class JobServiceImpl implements IJobService{
 	public List<JobeetJob> listAllJob(){
 		return null;
 	}
+	
+	@Transactional(readOnly=false)
+	public List<JobeetJob> listarTrabajosActivos(){
+		LOGGER.info("JobServiceImpl --> Entrada listarTrabajosActivos");
+		return getJobDAO().listarTrabajosActivos();
+	}
 }
