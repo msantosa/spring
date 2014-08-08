@@ -38,7 +38,24 @@
 		</put-list-attribute>
 		<put-list-attribute name="ListJS">
 			<add-attribute value="/js/dhtmlgoodies_calendar.js" />
-			<add-attribute value="/js/job.js" />
+			<add-attribute value="/js/funciones.js" />
+		</put-list-attribute>
+    </definition>
+    
+    <definition name="showJob" extends="base.definition">
+        <put-attribute name="title" value="/WEB-INF/jsp/titleShowJob.jsp" />
+        <put-attribute name="body" value="/WEB-INF/jsp/showJob.jsp" />
+        <put-list-attribute name="ListCss" inherit="true">
+		    <add-attribute value="/css/job.css" />
+		</put-list-attribute>
+    </definition>
+    
+    <definition name="error.page" extends="base.definition">
+        <put-attribute name="title" value="Se ha producido un error" />
+        <put-attribute name="header" value="/WEB-INF/jsp/header_error.jsp" />
+        <put-attribute name="body" value="/WEB-INF/jsp/error.jsp" />
+        <put-list-attribute name="ListJS">
+			<add-attribute value="/js/funciones.js" />
 		</put-list-attribute>
     </definition>
 

@@ -58,4 +58,15 @@
 	<bean id="jobDAO" class="org.jobeet.dao.impl.JobDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	
+		<!-- Se definen los beans de los servicios -->
+	<bean id="CategoryService" class="org.jobeet.service.impl.CategoryServiceImpl">
+		<property name="categoryDAO" ref="categoryDAO"></property>
+		<property name="jobDAO" ref="jobDAO"></property>
+	</bean>
+	
+	<bean id="JobService" class="org.jobeet.service.impl.JobServiceImpl">
+		<property name="jobDAO" ref="jobDAO"></property>
+	</bean>
+	
 </beans>

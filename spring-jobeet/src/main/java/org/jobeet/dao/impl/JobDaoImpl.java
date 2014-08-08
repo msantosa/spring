@@ -5,9 +5,13 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Property;
+import org.hibernate.criterion.Restrictions;
 import org.jobeet.dao.IJobDao;
+import org.jobeet.model.JobeetCategory;
 import org.jobeet.model.JobeetJob;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class JobDaoImpl implements IJobDao {
 
 	private SessionFactory sessionFactory;
@@ -28,22 +32,8 @@ public class JobDaoImpl implements IJobDao {
 		
 		java.util.Date dt = new java.util.Date();
 
-		java.text.SimpleDateFormat sdf = 
-		     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		
-		String currentTime = sdf.format(dt);
-		
-		System.out.println("CURRENTTIME="+currentTime);
-		
-		/**REVISAR COMO CONTROLAR EXCEPCIONES EN DAO**/
-		
-		try {
-			trabajo.setCreated_at(sdf.parse(currentTime));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new RuntimeException("DAO addJob failed", e);
-		}
+		trabajo.setCreated_at(dt);
+
 		this.sessionFactory.getCurrentSession().save(trabajo);
 		LOGGER.info("JobDaoImpl --> Salida en añadir job");
 
@@ -74,11 +64,33 @@ public class JobDaoImpl implements IJobDao {
 	
 	public List<JobeetJob> listarTrabajosActivos(){
 		LOGGER.info("JobDaoImpl listarTrabajosActivos <-- Entrada");
-		List listaTrabajos=sessionFactory.getCurrentSession().createCriteria(JobeetJob.class)
-				.addOrder( Property.forName("created_at").desc() )     
-				.setMaxResults(10).list() ;
+		
+		java.util.Date hoy = new java.util.Date();
+		
+		List listaTrabajos=null;
+			listaTrabajos = sessionFactory.getCurrentSession().createCriteria(JobeetJob.class)
+					.add(Restrictions.ge("expires_at", hoy))
+					.addOrder( Property.forName("expires_at").desc()).list();
+			
 		LOGGER.info("JobDaoImpl listarTrabajosActivos <-- Salida");
 		
+		return listaTrabajos;
+	}
+
+	public List<JobeetJob> trabajosActivosCategoria(JobeetCategory categoria) {
+		LOGGER.info("trabajosActivosCategoria <-- Entrada");
+
+		java.util.Date hoy = new java.util.Date();
+		
+		List listaTrabajos=sessionFactory.getCurrentSession().createCriteria(JobeetJob.class)
+				.add(Restrictions.ge("expires_at", hoy))
+				.add(Restrictions.eq("category", categoria))
+				.addOrder( Property.forName("expires_at").desc() )     
+				.setMaxResults(10).list();
+		
+		
+		
+		LOGGER.info("trabajosActivosCategoria <-- Salida");
 		return listaTrabajos;
 	}
 

@@ -3,12 +3,8 @@
 	<h1>NEW JOB</h1>
 	<form:form method="post" action="addJob.html" commandName="trabajo" onsubmit="return validarFormJob()">
 		<div>
-			<form:label path="category">Category Id</form:label> 
-			<form:select path="category">
-				<option value="" selected="selected"></option>
-				<c:forEach var="categoria" items="${listaCategorias}" >
-					<option value="${categoria}" >${categoria.name}</option>
-				</c:forEach>	
+			<form:label path="category.id">Category Id</form:label> 
+			<form:select path="category.id" items="${listaCategorias}" itemValue="id" itemLabel="name">
 			</form:select> 
 		</div>
 		<div>
@@ -36,11 +32,11 @@
 			<form:input id="location" path="location" />
 		</div>
 		<div>
-			<form:label path="description">Description</form:label>
+			<form:label class="description" path="description">Description</form:label>
 			<form:textarea id="description" path="description" rows="4" cols="50"/>
 		</div>
 		<div>
-			<form:label path="how_to_apply">How to apply</form:label>
+			<form:label class="how_to_apply" path="how_to_apply">How to apply</form:label>
 			<form:textarea id="how_to_apply" path="how_to_apply" rows="4" cols="50"/>
 		</div>
 		<div>

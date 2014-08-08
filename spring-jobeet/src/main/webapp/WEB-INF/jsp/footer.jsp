@@ -1,9 +1,9 @@
 <div id="footer">
 	<div class="content">
     	<span class="symfony">
-            <img src="/legacy/images/jobeet-mini.png" />
+            <img src="${pageContext.request.contextPath}/legacy/images/jobeet-mini.png" />
             powered by <a href="/">
-            <img src="/legacy/images/symfony.gif" alt="symfony framework" />
+            <img src="${pageContext.request.contextPath}/legacy/images/symfony.gif" alt="symfony framework" />
             </a>
         </span>
         <ul>

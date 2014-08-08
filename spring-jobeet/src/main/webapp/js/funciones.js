@@ -31,4 +31,24 @@ function validarFormJob() {
 		alert("Debe rellenarse la fecha de expiraci\u00f3n del trabajo");
 		return false;
 	}
+	else{
+		var fechaActual=new Date();
+		var sfecha_expiracion= document.getElementById('expires_at').value;
+		var dfechaExpiracion=new Date(sfecha_expiracion);
+		
+		if(dfechaExpiracion<fechaActual){
+			alert("La fecha de expiraci\u00f3n debe ser mayor que la fecha actual");
+			return false;
+		}	
+	}
+}
+
+function blmostrocult(detalleExc){
+	var detalle=document.getElementById('detalleExcepcion');
+	
+	if(detalle.style.display=='none'){
+		detalle.style.display='block';
+	}else{
+		detalle.style.display='none';
+	}
 }

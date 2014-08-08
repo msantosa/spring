@@ -1,9 +1,9 @@
 package org.jobeet.dao;
 
-import java.util.Date;
 import java.util.List;
 
 import org.jobeet.model.JobeetCategory;
+import org.jobeet.model.JobeetJob;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +26,11 @@ public class CategoryDaoTest{
 		System.out.println("Iniciamos el test testlistAllCategory");
 		List<JobeetCategory> lista=categoryDAO.listAllCategory();
 		System.out.println("Número de elementos="+lista.size());
+		System.out.println("Número de trabajos asociados="+((JobeetCategory)(lista.get(1))).getTrabajos().size());
+		for(JobeetJob j: ((JobeetCategory)(lista.get(0))).getTrabajos()){
+			System.out.println("Trabajo"+j.getId()+"="+j.getCompany()+" fecha_creación="+j.getCreated_at()
+					+" fecha expiración="+j.getExpires_at());
+		}
 		System.out.println("Fin el test testlistAllCategory");
 	}
 	

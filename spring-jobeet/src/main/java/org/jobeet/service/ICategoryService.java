@@ -9,4 +9,5 @@ public interface ICategoryService {
 	public void addCategory(JobeetCategory categoria);
 	public JobeetCategory getCategoryById(int idCategoria);
 	public List<JobeetCategory> listAllCategory();
+	public List<JobeetCategory> trabajosActivosXCategoria();
 }

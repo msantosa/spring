@@ -38,7 +38,7 @@ public class JobDaoTest{
 		trabajo1.setLocation("prueba position");
 		trabajo1.setDescription("prueba descripción");
 		trabajo1.setHow_to_apply("prueba how_to_apply");
-		trabajo1.setToken("prueba Token");
+		trabajo1.setToken("prueba Token2");
 		trabajo1.setEmail("prueba@prueba.com");
 		
 		java.util.Date dt = new java.util.Date();
@@ -76,7 +76,7 @@ public class JobDaoTest{
 	public void testJobById() {
 		System.out.println("Iniciamos el test testJobById");
 		System.out.println("Categoria1="+jobDAO.getJobById(1));
-		System.out.println("Categoria999="+jobDAO.getJobById(999));
+		System.out.println("Categoria12="+jobDAO.getJobById(12));
 		System.out.println("Fin el test testJobById");
 	}
 	
@@ -95,4 +95,21 @@ public class JobDaoTest{
 		System.out.println("Fin el test testlistarTrabajosActivos");
 	}
 
+	@Test
+	public void testListarTrabajosActivosCategoria() {
+		System.out.println("Iniciamos el test testlistarTrabajosActivos");
+		JobeetCategory categoria=new JobeetCategory();
+		categoria.setId(1);
+		List <JobeetJob> lista=jobDAO.trabajosActivosCategoria(categoria);
+		if(lista!=null){
+			System.out.println("Tamaño de lista="+lista.size());
+			for(int i=0;i<lista.size();i++){
+				System.out.println("Location="+((JobeetJob)lista.get(i)).getLocation());
+				System.out.println("Position="+((JobeetJob)lista.get(i)).getPosition());
+				System.out.println("Company="+((JobeetJob)lista.get(i)).getCompany());
+				System.out.println("Expires At="+((JobeetJob)lista.get(i)).getExpires_at());
+			}
+		}
+		System.out.println("Fin el test testlistarTrabajosActivos");
+	}
 }

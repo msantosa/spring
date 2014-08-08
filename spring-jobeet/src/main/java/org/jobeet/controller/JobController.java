@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -36,12 +37,21 @@ public class JobController {
 	}
 	
 	@RequestMapping(value = "/addJob", method = RequestMethod.POST)
-	public String addContact(@ModelAttribute("trabajo") JobeetJob trabajo, BindingResult result) {
+	public String addJob(@ModelAttribute("trabajo") JobeetJob trabajo, BindingResult result) {
 		/*CategoryService.addContact(contact);*/
 		logger.info("El identificador del job es "+trabajo.getId());
 		logger.info("El tipo del job es "+trabajo.getType());
+		logger.info("Category="+trabajo.getCategory());
 		JobService.addJob(trabajo);
 		logger.info("Después de guardar el trabajo");
 		return "redirect:/";
+	}
+	
+	
+	@RequestMapping(value = "/showJob/{idTrabajo}", method = RequestMethod.GET)
+	public String showJob(@PathVariable Integer idTrabajo, ModelMap model) {
+		logger.info("Recuperamos el trabajo en función del id "+idTrabajo);
+		model.addAttribute("trabajo", JobService.getJobById(idTrabajo));
+		return "showJob";
 	}
 }

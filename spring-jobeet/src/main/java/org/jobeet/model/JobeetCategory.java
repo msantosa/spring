@@ -30,8 +30,16 @@ public class JobeetCategory {
 	private Date updated_at;
 	
 	@OneToMany(targetEntity=JobeetJob.class, fetch = FetchType.LAZY, mappedBy = "category")
-	private Set<JobeetJob> trabajo;
+	private Set<JobeetJob> trabajos;
 	
+	public Set<JobeetJob> getTrabajos() {
+		return trabajos;
+	}
+
+	public void setTrabajos(Set<JobeetJob> trabajos) {
+		this.trabajos = trabajos;
+	}
+
 	public Integer getId() {
 		return id;
 	}

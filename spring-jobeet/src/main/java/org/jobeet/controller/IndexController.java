@@ -26,7 +26,8 @@ public class IndexController {
 			logger.info("Hemos entrado en index");
 		}
 		logger.info("Recuperamos el listado de trabajos activos");
-		model.addAttribute("listaTrabajosActivos",JobService.listarTrabajosActivos());
+		/*model.addAttribute("listaTrabajosActivos",JobService.listarTrabajosActivos());*/
+		model.addAttribute("listaCategoriaTrabajo",CategoryService.trabajosActivosXCategoria());
 		logger.info("Se han recuperado los trabajos. Hacemos redirect");
 		return "index"; 
 	}

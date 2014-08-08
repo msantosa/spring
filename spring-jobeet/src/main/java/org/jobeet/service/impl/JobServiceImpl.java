@@ -43,8 +43,9 @@ public class JobServiceImpl implements IJobService{
 	}
 	
 	@Transactional(readOnly=true)
-	public JobeetJob getJObById(int idJob){
-		return null;
+	public JobeetJob getJobById(int idJob){
+		LOGGER.info("Entrada a getJobById. Id="+ idJob);
+		return jobDAO.getJobById(idJob);
 	}
 	
 	@Transactional(readOnly=true)
@@ -52,7 +53,7 @@ public class JobServiceImpl implements IJobService{
 		return null;
 	}
 	
-	@Transactional(readOnly=false)
+	@Transactional(readOnly=true)
 	public List<JobeetJob> listarTrabajosActivos(){
 		LOGGER.info("JobServiceImpl --> Entrada listarTrabajosActivos");
 		return getJobDAO().listarTrabajosActivos();
