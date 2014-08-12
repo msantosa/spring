@@ -57,8 +57,8 @@
 		</div>
 		<div>
 			<form:label path="expires_at">Expires_at</form:label>
-			<form:input readonly="readonly" id="expires_at" type="datetime-local" path="expires_at" value="" min="2000-10-08T12:05:00" max="2099-10-08T12:23:59"/>
-			<input type="button" value="Cal" onclick="displayCalendar(document.getElementById('expires_at'),'yyyy/mm/dd hh:ii',this,true)">
+			<form:input path="expires_at" readonly="readonly" id="expires_at" type="datetime-local" value="" min="2000-10-08T12:05:00" max="2099-10-08T12:23:59"/>
+			<input type="button" value="Cal" onclick="displayCalendar(document.getElementById('expires_at'),'dd/mm/yyyy hh:ii',this,true)">
 		</div>
 		<div>
 			<input type="submit" value="Añadir">

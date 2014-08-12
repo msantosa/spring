@@ -22,65 +22,59 @@ public class JobeetJob {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id", nullable=false)
 	private Integer id;
-	
-	/*@ManyToOne(targetEntity=JobeetCategory.class)
-    @ForeignKey(name = "JobeetJob_category_fk")
-    @JoinColumn(name = "category_id")*/
-	//@Column(name="category_id")
-	//private Integer category_id;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id", nullable = true)
 	private JobeetCategory category;
-	
+
 	@Column(name="type", nullable=true)
 	private String type;
-	
+
 	@Column(name="company", nullable=false)
 	private String company;
-	
+
 	@Column(name="logo", nullable=true)
 	private String logo;
-	
+
 	@Column(name="url", nullable=true)
 	private String url;
-	
+
 	@Column(name="position", nullable=false)
 	private String position;
-	
+
 	@Column(name="location", nullable=false)
 	private String location;
-	
+
 	@Column(name="description", nullable=false)
 	private String description;
-	
+
 	@Column(name="how_to_apply", nullable=false)
 	private String how_to_apply;
-	
+
 	@Column(name="token", unique=true, nullable=false)
 	private String token;
-	
+
 	@Column(name="is_public", nullable=false)
 	private boolean is_public;
-	
+
 	@Column(name="is_activated", nullable=false)
 	private boolean is_activated;
-	
+
 	@Column(name="email", nullable=false)
 	private String email;
-	
+
 	@Column(name="expires_at", nullable=false)
-	@DateTimeFormat(pattern = "dd/mm/yyyy hh:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm")
 	private Date expires_at;
-	
+
 	@Column(name="created_at", nullable=false)
-	@DateTimeFormat(pattern = "dd/mm/yyyy hh:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm")
 	private Date created_at;
-	
+
 	@Column(name="updated_at", nullable=true)
-	@DateTimeFormat(pattern = "dd/mm/yyyy hh:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy hh:mm")
 	private Date updated_at;
-	
+
 	public Date getCreated_at() {
 		return created_at;
 	}
@@ -96,7 +90,7 @@ public class JobeetJob {
 	public void setUpdated_at(Date updated_at) {
 		this.updated_at = updated_at;
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -104,14 +98,6 @@ public class JobeetJob {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	/*public Integer getCategory_id() {
-		return category_id;
-	}
-
-	public void setCategory_id(Integer category_id) {
-		this.category_id = category_id;
-	}*/
 
 	public String getType() {
 		return type;
@@ -144,7 +130,7 @@ public class JobeetJob {
 	public void setUrl(String url) {
 		this.url = url;
 	}	
-	
+
 	public String getPosition() {
 		return position;
 	}
