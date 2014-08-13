@@ -15,7 +15,10 @@
  http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
 	<context:annotation-config />
-	<context:component-scan base-package="org.jobeet" />
+	<context:component-scan base-package="org.jobeet">
+		<context:exclude-filter type="regex" 
+			expression="org.jobeet.controller.*" />
+	</context:component-scan>
 
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
@@ -47,26 +50,26 @@
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
-	 <tx:annotation-driven transaction-manager="transactionManager"/>
-	
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
 	<!-- Se definen los beans de los DAO -->
 	<bean id="categoryDAO" class="org.jobeet.dao.impl.CategoryDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
+
 	<bean id="jobDAO" class="org.jobeet.dao.impl.JobDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
-		<!-- Se definen los beans de los servicios -->
+
+	<!-- Se definen los beans de los servicios -->
 	<bean id="CategoryService" class="org.jobeet.service.impl.CategoryServiceImpl">
 		<property name="categoryDAO" ref="categoryDAO"></property>
 		<property name="jobDAO" ref="jobDAO"></property>
 	</bean>
-	
+
 	<bean id="JobService" class="org.jobeet.service.impl.JobServiceImpl">
 		<property name="jobDAO" ref="jobDAO"></property>
 	</bean>
-	
+
 </beans>

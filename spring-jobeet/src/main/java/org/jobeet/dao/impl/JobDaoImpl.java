@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.jobeet.dao.IJobDao;
@@ -92,6 +93,23 @@ public class JobDaoImpl implements IJobDao {
 		
 		LOGGER.info("trabajosActivosCategoria <-- Salida");
 		return listaTrabajos;
+	}
+
+	public int numTrabajosActivosCategoria(JobeetCategory categoria) {
+		// TODO Auto-generated method stub
+		LOGGER.info("trabajosActivosCategoria <-- Entrada");
+
+		java.util.Date hoy = new java.util.Date();
+		
+		Integer numTrabajos=(Integer) sessionFactory.getCurrentSession().createCriteria(JobeetJob.class)
+				.setProjection(Projections.rowCount())
+				.add(Restrictions.ge("expires_at", hoy))
+				.add(Restrictions.eq("category", categoria)).uniqueResult();
+		
+		
+		LOGGER.info("trabajosActivosCategoria <-- Salida");
+		
+		return numTrabajos.intValue();
 	}
 
 }

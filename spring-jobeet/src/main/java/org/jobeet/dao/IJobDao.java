@@ -12,4 +12,5 @@ public interface IJobDao {
 	public List<JobeetJob> listAllJob();
 	public List<JobeetJob> listarTrabajosActivos();
 	public List<JobeetJob> trabajosActivosCategoria(JobeetCategory categoria);
+	public int numTrabajosActivosCategoria(JobeetCategory categoria);
 }

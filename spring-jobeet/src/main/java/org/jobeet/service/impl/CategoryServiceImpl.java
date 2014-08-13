@@ -66,9 +66,11 @@ public class CategoryServiceImpl implements ICategoryService{
 		
 		for(int i=0; i<listaCategoria.size();i++){
 			categoriaAux=((JobeetCategory)listaCategoria.get(i));
+			//Obtenemos el listado de categorias a mostrar en la patanlla principal
 			List<JobeetJob> listaTrabajosActivos=getJobDAO().trabajosActivosCategoria(categoriaAux);
 			trabajosAux=new HashSet<JobeetJob>(listaTrabajosActivos);
 			categoriaAux.setTrabajos(trabajosAux);
+			
 			listaCategoriaTrabajo.add(categoriaAux);
 			categoriaAux=null;
 			trabajosAux=null;

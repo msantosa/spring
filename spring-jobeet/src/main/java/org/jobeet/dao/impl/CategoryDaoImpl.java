@@ -1,16 +1,12 @@
 package org.jobeet.dao.impl;
 
-import java.text.ParseException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.DetachedCriteria;
 import org.jobeet.dao.ICategoryDao;
 import org.jobeet.model.JobeetCategory;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class CategoryDaoImpl implements ICategoryDao{
