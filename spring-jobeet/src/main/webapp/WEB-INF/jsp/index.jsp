@@ -14,6 +14,7 @@
   <tbody>
   <tr><td>Prueba 1 </td></tr>
   <tr><td>Prueba 2 </td></tr>
+  <tr><td>Prueba 3 </td></tr>
   </tbody>
 </table>
  
