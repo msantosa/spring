@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.jobeet.dao.IJobDao;
+import org.jobeet.model.JobeetCategory;
 import org.jobeet.model.JobeetJob;
 import org.jobeet.service.IJobService;
 import org.springframework.stereotype.Service;
@@ -50,12 +51,18 @@ public class JobServiceImpl implements IJobService{
 	
 	@Transactional(readOnly=true)
 	public List<JobeetJob> listAllJob(){
-		return null;
+		return getJobDAO().listAllJob();
 	}
 	
 	@Transactional(readOnly=true)
 	public List<JobeetJob> listarTrabajosActivos(){
 		LOGGER.info("JobServiceImpl --> Entrada listarTrabajosActivos");
 		return getJobDAO().listarTrabajosActivos();
+	}
+	
+	@Transactional(readOnly=true)
+	public int numTrabajosActivosCategoria(JobeetCategory categoria) {
+		LOGGER.info("JobServiceImpl --> Entrada numTrabajosActivosCategoria");
+		return getJobDAO().numTrabajosActivosCategoria(categoria);
 	}
 }

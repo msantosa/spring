@@ -21,7 +21,7 @@
 						<div class="feed">
 							<a href="">Feed</a>
 						</div>
-						<h1>${categoria.getName()}</h1>
+						<h1 style="height: 5px; ">${categoria.getName()}</h1>
 					</div>
 					<c:forEach items="${categoria.trabajos}" var="trabajo"
 						varStatus="loopStatus">
@@ -34,6 +34,9 @@
 							</tr>
 						</table>
 					</c:forEach>
+					<c:if test="${categoriaTrabajosActivos.get(categoria.id).intValue()>0}">
+						Hay ${categoriaTrabajosActivos.get(categoria.id).intValue()} mas
+					</c:if>
 				</div>
 			</c:if>
 		</c:forEach>

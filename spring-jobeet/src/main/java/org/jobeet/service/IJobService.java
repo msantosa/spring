@@ -1,6 +1,8 @@
 package org.jobeet.service;
 
 import java.util.List;
+
+import org.jobeet.model.JobeetCategory;
 import org.jobeet.model.JobeetJob;
 
 
@@ -10,4 +12,5 @@ public interface IJobService {
 	public JobeetJob getJobById(int idJob);
 	public List<JobeetJob> listAllJob();
 	public List<JobeetJob> listarTrabajosActivos();
+	public int numTrabajosActivosCategoria(JobeetCategory categoria);
 }
