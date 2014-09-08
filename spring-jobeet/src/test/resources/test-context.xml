@@ -23,6 +23,12 @@
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
 		p:location="classpath:jdbc.properties" />
+		
+	<util:properties id="myproperties" location="classpath:appConfig.properties" />
+
+    <bean id="appConfig" class="org.jobeet.config.AppConfig">
+        <property name="properties" ref="myproperties" />
+    </bean>
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close" p:driverClassName="${jdbc.driverClassName}"

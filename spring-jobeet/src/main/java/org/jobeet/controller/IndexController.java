@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.jobeet.config.AppConfig;
 import org.jobeet.model.JobeetCategory;
 import org.jobeet.service.ICategoryService;
 import org.jobeet.service.IJobService;
@@ -41,7 +42,7 @@ public class IndexController {
 		logger.info("Creamos HasMap con el detalle de categoria-trabajos activos");
 		for(JobeetCategory categoria : trabajosActivosXCategoria){
 			logger.info("Categoria="+categoria.getName());
-			numTrabajosActivosMas=JobService.numTrabajosActivosCategoria(categoria)-10>0?JobService.numTrabajosActivosCategoria(categoria)-10:0;
+			numTrabajosActivosMas=JobService.numTrabajosActivosCategoria(categoria)-AppConfig.getMaxTrabajosIndex()>0?JobService.numTrabajosActivosCategoria(categoria)-AppConfig.getMaxTrabajosIndex():0;
 			logger.info("numTrabajosActivos="+(numTrabajosActivosMas));
 			categoriaTrabajosActivos.put(categoria.getId(), new Integer(numTrabajosActivosMas));
 		}

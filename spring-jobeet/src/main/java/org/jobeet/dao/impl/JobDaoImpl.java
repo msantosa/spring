@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
+import org.jobeet.config.AppConfig;
 import org.jobeet.dao.IJobDao;
 import org.jobeet.model.JobeetCategory;
 import org.jobeet.model.JobeetJob;
@@ -87,10 +88,8 @@ public class JobDaoImpl implements IJobDao {
 				.add(Restrictions.ge("expires_at", hoy))
 				.add(Restrictions.eq("category", categoria))
 				.addOrder( Property.forName("expires_at").desc() )     
-				.setMaxResults(10).list();
-		
-		
-		
+				.setMaxResults(AppConfig.getMaxTrabajosIndex()).list();
+				
 		LOGGER.info("trabajosActivosCategoria <-- Salida");
 		return listaTrabajos;
 	}
