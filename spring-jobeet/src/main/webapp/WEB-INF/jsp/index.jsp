@@ -21,7 +21,7 @@
 						<div class="feed">
 							<a href="">Feed</a>
 						</div>
-						<h1 style="height: 5px; ">${categoria.getName()}</h1>
+						<h1>${categoria.getName()}</h1>
 					</div>
 					<c:forEach items="${categoria.trabajos}" var="trabajo"
 						varStatus="loopStatus">
