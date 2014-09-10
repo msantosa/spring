@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.jobeet.config.AppConfig;
 import org.jobeet.dao.ICategoryDao;
 import org.jobeet.dao.IJobDao;
 import org.jobeet.model.JobeetCategory;
@@ -31,14 +32,17 @@ public class CategoryServiceImpl implements ICategoryService{
 	}
 
 	
+	@Transactional(readOnly = false)
 	public void addCategory(JobeetCategory categoria){
 		
 	}
+	
+	@Transactional(readOnly = true)
 	public JobeetCategory getCategoryById(int idCategoria){
-		return null;
+		return getCategoryDAO().getCategoryById(idCategoria);
 	}
 	
-	@Transactional(readOnly = false)
+	@Transactional(readOnly = true)
 	public ICategoryDao getCategoryDAO() {
 		return categoryDAO;
 	}
@@ -67,7 +71,7 @@ public class CategoryServiceImpl implements ICategoryService{
 		for(int i=0; i<listaCategoria.size();i++){
 			categoriaAux=((JobeetCategory)listaCategoria.get(i));
 			//Obtenemos el listado de categorias a mostrar en la patanlla principal
-			List<JobeetJob> listaTrabajosActivos=getJobDAO().trabajosActivosCategoria(categoriaAux);
+			List<JobeetJob> listaTrabajosActivos=getJobDAO().trabajosActivosCategoria(categoriaAux,AppConfig.getMaxTrabajosIndex());
 			trabajosAux=new HashSet<JobeetJob>(listaTrabajosActivos);
 			categoriaAux.setTrabajos(trabajosAux);
 			
@@ -77,5 +81,15 @@ public class CategoryServiceImpl implements ICategoryService{
 		}
 		
 		return listaCategoriaTrabajo;
+	}
+	
+	@Transactional(readOnly=true)
+	public List<JobeetJob> trabajosActivosCategoria(JobeetCategory categoria,int numPagina){
+		return getJobDAO().trabajosActivosPaginado(categoria, AppConfig.getMaxTrabajosCategoria(), numPagina);
+	}
+	
+	@Transactional(readOnly=true)
+	public int numTrabajosActivosCategoria(JobeetCategory categoria){
+		return getJobDAO().numTrabajosActivosCategoria(categoria);
 	}
 }

@@ -3,11 +3,11 @@ package org.jobeet.dao.impl;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
-import org.jobeet.config.AppConfig;
 import org.jobeet.dao.IJobDao;
 import org.jobeet.model.JobeetCategory;
 import org.jobeet.model.JobeetJob;
@@ -79,21 +79,44 @@ public class JobDaoImpl implements IJobDao {
 		return listaTrabajos;
 	}
 
-	public List<JobeetJob> trabajosActivosCategoria(JobeetCategory categoria) {
+	public List<JobeetJob> trabajosActivosCategoria(JobeetCategory categoria,int tamanioPagina) {
 		LOGGER.info("trabajosActivosCategoria <-- Entrada");
+
+		java.util.Date hoy = new java.util.Date();
+		
+		Criteria query=sessionFactory.getCurrentSession().createCriteria(JobeetJob.class);
+		
+		query.add(Restrictions.ge("expires_at", hoy))
+				.add(Restrictions.eq("category", categoria))
+				.addOrder( Property.forName("expires_at").desc());
+		
+		//Si tamanio es igual a -1 se muestran todos los trabajos activos
+		if(tamanioPagina!=-1){
+			query.setMaxResults(tamanioPagina);
+		}
+			
+		List listaTrabajos=query.list();
+				
+		LOGGER.info("trabajosActivosCategoria <-- Salida");
+		return listaTrabajos;
+	}
+
+	public List<JobeetJob> trabajosActivosPaginado(JobeetCategory categoria, int tamanioPagina, int numPagina) {
+		LOGGER.info("trabajosActivosPaginado <-- Entrada");
 
 		java.util.Date hoy = new java.util.Date();
 		
 		List listaTrabajos=sessionFactory.getCurrentSession().createCriteria(JobeetJob.class)
 				.add(Restrictions.ge("expires_at", hoy))
 				.add(Restrictions.eq("category", categoria))
-				.addOrder( Property.forName("expires_at").desc() )     
-				.setMaxResults(AppConfig.getMaxTrabajosIndex()).list();
+				.setFirstResult((numPagina-1)*tamanioPagina)
+				.setMaxResults(tamanioPagina)
+				.list();
 				
-		LOGGER.info("trabajosActivosCategoria <-- Salida");
+		LOGGER.info("trabajosActivosPaginado <-- Salida");
 		return listaTrabajos;
 	}
-
+	
 	public int numTrabajosActivosCategoria(JobeetCategory categoria) {
 		// TODO Auto-generated method stub
 		LOGGER.info("trabajosActivosCategoria <-- Entrada");

@@ -12,5 +12,4 @@ public interface IJobService {
 	public JobeetJob getJobById(int idJob);
 	public List<JobeetJob> listAllJob();
 	public List<JobeetJob> listarTrabajosActivos();
-	public int numTrabajosActivosCategoria(JobeetCategory categoria);
 }

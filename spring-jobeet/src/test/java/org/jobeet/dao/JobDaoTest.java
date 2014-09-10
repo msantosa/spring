@@ -2,6 +2,7 @@ package org.jobeet.dao;
 
 import java.util.List;
 
+import org.jobeet.config.AppConfig;
 import org.jobeet.model.JobeetCategory;
 import org.jobeet.model.JobeetJob;
 import org.junit.Test;
@@ -102,7 +103,7 @@ public class JobDaoTest extends AbstractTransactionalJUnit4SpringContextTests{
 		System.out.println("Iniciamos el test testlistarTrabajosActivos");
 		JobeetCategory categoria=new JobeetCategory();
 		categoria.setId(1);
-		List <JobeetJob> lista=jobDAO.trabajosActivosCategoria(categoria);
+		List <JobeetJob> lista=jobDAO.trabajosActivosCategoria(categoria,AppConfig.getMaxTrabajosIndex());
 		if(lista!=null){
 			System.out.println("Tamaño de lista="+lista.size());
 			for(int i=0;i<lista.size();i++){

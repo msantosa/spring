@@ -58,5 +58,13 @@
 			<add-attribute value="/js/funciones.js" />
 		</put-list-attribute>
     </definition>
+    
+    <definition name="showCategory" extends="base.definition">
+        <put-attribute name="title" value="Jobeet - Your best job board" />
+        <put-attribute name="body" value="/WEB-INF/jsp/showCategory.jsp" />
+        <put-list-attribute name="ListCss" inherit="true">
+		    <add-attribute value="/css/jobs.css" />
+		</put-list-attribute>
+    </definition>
 
 </tiles-definitions>

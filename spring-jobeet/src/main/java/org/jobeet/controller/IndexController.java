@@ -42,7 +42,7 @@ public class IndexController {
 		logger.info("Creamos HasMap con el detalle de categoria-trabajos activos");
 		for(JobeetCategory categoria : trabajosActivosXCategoria){
 			logger.info("Categoria="+categoria.getName());
-			numTrabajosActivosMas=JobService.numTrabajosActivosCategoria(categoria)-AppConfig.getMaxTrabajosIndex()>0?JobService.numTrabajosActivosCategoria(categoria)-AppConfig.getMaxTrabajosIndex():0;
+			numTrabajosActivosMas=CategoryService.numTrabajosActivosCategoria(categoria)-AppConfig.getMaxTrabajosIndex()>0?CategoryService.numTrabajosActivosCategoria(categoria)-AppConfig.getMaxTrabajosIndex():0;
 			logger.info("numTrabajosActivos="+(numTrabajosActivosMas));
 			categoriaTrabajosActivos.put(categoria.getId(), new Integer(numTrabajosActivosMas));
 		}

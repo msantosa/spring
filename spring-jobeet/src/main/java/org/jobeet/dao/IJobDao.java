@@ -11,6 +11,7 @@ public interface IJobDao {
 	public JobeetJob getJobById(int idTrabajo);
 	public List<JobeetJob> listAllJob();
 	public List<JobeetJob> listarTrabajosActivos();
-	public List<JobeetJob> trabajosActivosCategoria(JobeetCategory categoria);
+	public List<JobeetJob> trabajosActivosCategoria(JobeetCategory categoria,int tamanioPagina);
+	public List<JobeetJob> trabajosActivosPaginado(JobeetCategory categoria, int tamanioPagina, int numPagina);
 	public int numTrabajosActivosCategoria(JobeetCategory categoria);
 }

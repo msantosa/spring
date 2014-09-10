@@ -7,9 +7,9 @@
 				<div class="category_${categoria.getName()}">
 					<div class="category">
 						<div class="feed">
-							<a href="">Feed</a>
+							<a href="#">Feed</a>
 						</div>
-						<h1>${categoria.getName()}</h1>
+						<a href="${pageContext.request.contextPath}/showCategory/${categoria.id}/1"><h1>${categoria.getName()}</h1></a>
 					</div>
 					<c:forEach items="${categoria.trabajos}" var="trabajo"
 						varStatus="loopStatus">
@@ -24,7 +24,7 @@
 					</c:forEach>
 					<c:if test="${categoriaTrabajosActivos.get(categoria.id).intValue()>0}">
 						<div class="more_jobs">
-							and <a href="">${categoriaTrabajosActivos.get(categoria.id).intValue()}</a> more...
+							and <a href="${pageContext.request.contextPath}/showCategory/${categoria.id}/1">${categoriaTrabajosActivos.get(categoria.id).intValue()}</a> more...
 						</div>
 					</c:if>
 				</div>

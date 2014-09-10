@@ -59,10 +59,4 @@ public class JobServiceImpl implements IJobService{
 		LOGGER.info("JobServiceImpl --> Entrada listarTrabajosActivos");
 		return getJobDAO().listarTrabajosActivos();
 	}
-	
-	@Transactional(readOnly=true)
-	public int numTrabajosActivosCategoria(JobeetCategory categoria) {
-		LOGGER.info("JobServiceImpl --> Entrada numTrabajosActivosCategoria");
-		return getJobDAO().numTrabajosActivosCategoria(categoria);
-	}
 }
