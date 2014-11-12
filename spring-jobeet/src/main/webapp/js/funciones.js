@@ -23,10 +23,10 @@ function validarFormJob() {
 		alert("Debe rellenarse c\u00f3mo aplicar el trabajo");
 		return false;
 	}
-	if(document.getElementById('token').value==""){
+	/*if(document.getElementById('token').value==""){
 		alert("Debe rellenarse el token identificador del trabajo");
 		return false;
-	}
+	}*/
 	if(document.getElementById('expires_at').value==""){
 		alert("Debe rellenarse la fecha de expiraci\u00f3n del trabajo");
 		return false;

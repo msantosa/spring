@@ -11,6 +11,7 @@ import org.hibernate.criterion.Restrictions;
 import org.jobeet.dao.IJobDao;
 import org.jobeet.model.JobeetCategory;
 import org.jobeet.model.JobeetJob;
+import org.jobeet.utilidades.JavaSHA1Hash;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -35,6 +36,8 @@ public class JobDaoImpl implements IJobDao {
 		java.util.Date dt = new java.util.Date();
 
 		trabajo.setCreated_at(dt);
+		
+		trabajo.setToken(JavaSHA1Hash.sha1(trabajo.getEmail()+Math.floor(Math.random()*(11111-99999+1)+99999)));
 
 		this.sessionFactory.getCurrentSession().save(trabajo);
 		LOGGER.info("JobDaoImpl --> Salida en añadir job");

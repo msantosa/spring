@@ -7,6 +7,7 @@
         template="/WEB-INF/jsp/layout.jsp">
         <put-attribute name="title" value="" />
         <put-attribute name="header" value="/WEB-INF/jsp/header.jsp" />
+        <put-attribute name="barJobAdmin" value="" />
         <put-attribute name="body" value="" />
         <put-attribute name="footer" value="/WEB-INF/jsp/footer.jsp" />
         <put-list-attribute name="ListCss">
@@ -43,6 +44,7 @@
     </definition>
     
     <definition name="showJob" extends="base.definition">
+    	<put-attribute name="barJobAdmin" value="/WEB-INF/jsp/barJobAdmin.jsp" />
         <put-attribute name="title" value="/WEB-INF/jsp/titleShowJob.jsp" />
         <put-attribute name="body" value="/WEB-INF/jsp/showJob.jsp" />
         <put-list-attribute name="ListCss" inherit="true">

@@ -1,4 +1,5 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
+
 <div id="job">
 	<h1>${trabajo.company}</h1>
 	<h2>${trabajo.location}</h2>
@@ -25,11 +26,5 @@
 	
 	<div class="meta">
 		<small> posted on ${trabajo.created_at} </small>
-	</div>
-	
-	<div style="padding: 20px 0">
-		<a href="${trabajo.id}">
-		Edit
-		</a>
 	</div>
 </div>

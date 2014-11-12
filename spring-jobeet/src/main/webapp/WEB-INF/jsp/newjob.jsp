@@ -39,10 +39,10 @@
 			<form:label class="how_to_apply" path="how_to_apply">How to apply</form:label>
 			<form:textarea id="how_to_apply" path="how_to_apply" rows="4" cols="50"/>
 		</div>
-		<div>
+		<!--<div>
 			<form:label path="token">Token</form:label>
 			<form:input id="token" path="token"/>
-		</div>
+		</div>-->
 		<div>
 			<form:label path="is_public">Is public</form:label>
 			<form:checkbox id="is_public" path="is_public" />

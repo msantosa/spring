@@ -9,7 +9,7 @@
 						<div class="feed">
 							<a href="#">Feed</a>
 						</div>
-						<a href="${pageContext.request.contextPath}/showCategory/${categoria.id}/1"><h1>${categoria.getName()}</h1></a>
+						<h1><a href="${pageContext.request.contextPath}/showCategory/${categoria.id}/1">${categoria.getName()}</a></h1>
 					</div>
 					<c:forEach items="${categoria.trabajos}" var="trabajo"
 						varStatus="loopStatus">
