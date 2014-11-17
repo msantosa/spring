@@ -12,4 +12,5 @@ public interface IJobService {
 	public JobeetJob getJobById(int idJob);
 	public List<JobeetJob> listAllJob();
 	public List<JobeetJob> listarTrabajosActivos();
+	public JobeetJob getJobValidadoEdicion(int idTrabajo,String token);
 }

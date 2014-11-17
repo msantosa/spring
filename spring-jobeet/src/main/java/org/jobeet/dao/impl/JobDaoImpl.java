@@ -136,5 +136,26 @@ public class JobDaoImpl implements IJobDao {
 		
 		return numTrabajos.intValue();
 	}
+	
+	public boolean validarToken(int idTrabajo, String token) {
+		boolean valido=false;
+		
+		// TODO Auto-generated method stub
+		LOGGER.info("validarToken <-- Entrada");
+
+		JobeetJob trabajo=(JobeetJob)sessionFactory.getCurrentSession().createCriteria(JobeetJob.class)
+				.add(Restrictions.eq("id",idTrabajo))
+				.add(Restrictions.eq("token", token))
+				.uniqueResult();
+		
+		if(trabajo!=null){
+			valido=true;
+		}
+		
+		LOGGER.info("valido="+valido);
+		LOGGER.info("validarToken <-- Salida");
+		
+		return valido;
+	}
 
 }

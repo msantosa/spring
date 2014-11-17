@@ -44,6 +44,14 @@
     </definition>
     
     <definition name="showJob" extends="base.definition">
+        <put-attribute name="title" value="/WEB-INF/jsp/titleShowJob.jsp" />
+        <put-attribute name="body" value="/WEB-INF/jsp/showJob.jsp" />
+        <put-list-attribute name="ListCss" inherit="true">
+		    <add-attribute value="/css/job.css" />
+		</put-list-attribute>
+    </definition>
+    
+    <definition name="showJobAdmin" extends="base.definition">
     	<put-attribute name="barJobAdmin" value="/WEB-INF/jsp/barJobAdmin.jsp" />
         <put-attribute name="title" value="/WEB-INF/jsp/titleShowJob.jsp" />
         <put-attribute name="body" value="/WEB-INF/jsp/showJob.jsp" />
@@ -64,6 +72,14 @@
     <definition name="showCategory" extends="base.definition">
         <put-attribute name="title" value="Jobeet - Your best job board" />
         <put-attribute name="body" value="/WEB-INF/jsp/showCategory.jsp" />
+        <put-list-attribute name="ListCss" inherit="true">
+		    <add-attribute value="/css/jobs.css" />
+		</put-list-attribute>
+    </definition>
+    
+    <definition name="mensajeGenerico" extends="base.definition">
+        <put-attribute name="title" value="Jobeet - Your best job board" />
+        <put-attribute name="body" value="/WEB-INF/jsp/mensajeGenerico.jsp" />
         <put-list-attribute name="ListCss" inherit="true">
 		    <add-attribute value="/css/jobs.css" />
 		</put-list-attribute>

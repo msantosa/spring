@@ -27,6 +27,8 @@ public class ExceptionController {
 	public ModelAndView handleSQLException(final SQLException ex) {
 		logger.info("handleSQLException - Catching: " + ex.getClass().getSimpleName());
 		logger.info("handleSQLException - Catching: " + ex.getCause());
+		logger.info("handleSQLException - Catching: " + ex.getCause());
+		logger.info("handleSQLException - Catching: " + ex.getMessage());
 		ModelAndView modelAndView = new ModelAndView("error.page");
 		modelAndView.addObject("exception", ex);
 		return modelAndView;
@@ -36,6 +38,8 @@ public class ExceptionController {
 	public ModelAndView handleException(final Exception ex) {
 		logger.info("handleException - Catching: " + ex.getClass().getSimpleName());
 		logger.info("handleException - Catching: " + ex.getCause());
+		logger.info("handleException - Catching: " + ex.hashCode());
+		logger.info("handleException - Catching: " + ex.getMessage());
 		ModelAndView modelAndView = new ModelAndView("error.page");
 		modelAndView.addObject("exception", ex);
 		return modelAndView;

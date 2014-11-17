@@ -47,7 +47,7 @@ function blmostrocult(detalleExc){
 	var detalle=document.getElementById('detalleExcepcion');
 	
 	if(detalle.style.display=='none'){
-		detalle.style.display='block';
+		detalle.style.display='inline';
 	}else{
 		detalle.style.display='none';
 	}

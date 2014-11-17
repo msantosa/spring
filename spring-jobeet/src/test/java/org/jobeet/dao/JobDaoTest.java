@@ -124,4 +124,19 @@ public class JobDaoTest extends AbstractTransactionalJUnit4SpringContextTests{
 		System.out.println("Trabajos activos categoria 3="+jobDAO.numTrabajosActivosCategoria(categoria));
 		System.out.println("Fin el test testTrabajosActivosCategoria");
 	}
+	
+	@Test
+	public void testValidarTokenTrabajo() {
+		System.out.println("Iniciamos el test testValidarTokenTrabajo");
+		int idTrabajo=73;
+		String token="abc";
+		System.out.println("Trabajo ["+idTrabajo+"] encontrado="+jobDAO.validarToken(idTrabajo, token));
+		
+		idTrabajo=97;
+		token="36d978a7ad2e18ca224342d6e3451924595cc8b0";
+		System.out.println("Trabajo ["+idTrabajo+"] encontrado="+jobDAO.validarToken(idTrabajo, token));
+		
+		System.out.println("Fin el test testValidarTokenTrabajo");
+	}
+	
 }

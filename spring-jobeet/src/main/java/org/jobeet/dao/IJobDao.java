@@ -14,4 +14,5 @@ public interface IJobDao {
 	public List<JobeetJob> trabajosActivosCategoria(JobeetCategory categoria,int tamanioPagina);
 	public List<JobeetJob> trabajosActivosPaginado(JobeetCategory categoria, int tamanioPagina, int numPagina);
 	public int numTrabajosActivosCategoria(JobeetCategory categoria);
+	public boolean validarToken(int idTrabajo, String token);
 }

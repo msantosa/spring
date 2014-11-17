@@ -191,6 +191,8 @@ body
   position: relative;
 }
 
+
+
 #footer .content {
   width: 783px;
   margin: 0 auto;
@@ -374,3 +376,48 @@ em
 {
   display: inline;
 }
+
+#detalleExcepcion
+{
+	border: 1;
+	border-color: black;
+	background-color: #F5ECCE;
+	display: none;
+    visibility: hidden;
+}
+
+#read_more
+{
+	display: none;
+}
+
+[for="read_more"]:hover{
+	cursor: pointer;
+}
+
+
+[for="read_more"] span:last-of-type {
+    display: none;
+    visibility: hidden;
+}
+
+input[type=checkbox]:checked ~ [for="read_more"] span:first-of-type {
+    display: none;
+    visibility: hidden;
+}
+
+input[type=checkbox]:checked ~ [for="read_more"] span:last-of-type {
+    display: inline;
+    visibility: visible;
+}
+
+input[type=checkbox]:checked ~ #detalleExcepcion {
+    display: block;
+    position: absolute;
+    visibility: visible;
+    z-index: 1;
+    width: 50%;
+    word-wrap: break-word;
+}
+
+

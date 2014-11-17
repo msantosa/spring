@@ -59,4 +59,17 @@ public class JobServiceImpl implements IJobService{
 		LOGGER.info("JobServiceImpl --> Entrada listarTrabajosActivos");
 		return getJobDAO().listarTrabajosActivos();
 	}
+	
+	@Transactional(readOnly=true)
+	public JobeetJob getJobValidadoEdicion(int idTrabajo,String token){
+		LOGGER.info("Entrada a getJobValidadoEdicion. Id="+ idTrabajo+" token="+token);
+		JobeetJob trabajo=null;;
+		
+		if(jobDAO.validarToken(idTrabajo, token)){
+			trabajo=jobDAO.getJobById(idTrabajo);
+		}
+		
+		LOGGER.info("Entrada a getJobValidadoEdicion. Id="+ idTrabajo+" token="+token);
+		return trabajo;
+	}
 }
