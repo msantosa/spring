@@ -52,6 +52,16 @@
     <bean id="appConfig" class="org.jobeet.config.AppConfig">
         <property name="properties" ref="myproperties" />
     </bean>
+    
+	<!-- Para poder hacer subida de documentos -->
+	<bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+ 
+         <!-- setting maximum upload size -->
+          <property name="maxUploadSize" value="100000" />
+ 
+    </bean>
+	
 
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"

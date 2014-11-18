@@ -11,7 +11,7 @@
 	<c:if test="${not empty trabajo.logo}">
 		<div class="logo">
 			<a href="${trabajo.url}">
-			<img alt="${trabajo.company}" src="/uploads/jobs/${trabajo.logo}">
+			<img alt="${trabajo.company}" src="/uploads/logos/${trabajo.logo}">
 			</a>
 		</div>
 	</c:if>

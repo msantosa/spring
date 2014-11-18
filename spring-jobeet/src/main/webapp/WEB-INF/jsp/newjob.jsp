@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/jsp/include.jsp" %>
 <div id="job">
 	<h1>NEW JOB</h1>
-	<form:form method="post" action="addJob.html" commandName="trabajo" onsubmit="return validarFormJob()">
+	<form:form method="post" action="addJob.html" commandName="trabajo" onsubmit="return validarFormJob()" enctype="multipart/form-data">
 		<div>
 			<form:label path="category.id">Category Id</form:label> 
 			<form:select path="category.id" items="${listaCategorias}" itemValue="id" itemLabel="name">
@@ -9,15 +9,23 @@
 		</div>
 		<div>
 			<form:label path="type">Type</form:label>
-			<form:input id="type" path="type"/>
+			<form:select  path="type">
+				<form:option value="" label="--- Seleccione tipo contrato ---"/>
+	  			<form:options items="${tiposContrato}" />
+  			</form:select>
 		</div>
+		<!--<div>
+			<form:label path="type">Type</form:label>
+			<form:input id="type" path="type"/>
+		</div>-->
 		<div>
 			<form:label path="company">Company</form:label>
 			<form:input id="company" path="company" />
 		</div>
 		<div>
 			<form:label path="logo">Logo</form:label>
-			<form:input id="logo" path="logo"/>
+			<!--<form:input id="logo" path="logo"/>-->
+			<input type="file" id="file" class="file" name="file">
 		</div>
 		<div>
 			<form:label path="url">Url</form:label>
@@ -47,10 +55,10 @@
 			<form:label path="is_public">Is public</form:label>
 			<form:checkbox id="is_public" path="is_public" />
 		</div>
-		<div>
+		<!--<div>
 			<form:label path="is_activated">Is activated</form:label>
 			<form:checkbox id="is_activated" path="is_activated" />
-		</div>
+		</div>-->
 		<div>
 			<form:label path="email">Email</form:label>
 			<form:input id="email" path="email" type="email"/>

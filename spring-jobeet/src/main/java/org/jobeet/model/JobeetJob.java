@@ -53,11 +53,12 @@ public class JobeetJob {
 	@Column(name="token", unique=true, nullable=false)
 	private String token;
 
+	/*Whether the job can also be published on affiliate websites or not.*/
 	@Column(name="is_public", nullable=false)
 	private boolean is_public;
 
 	@Column(name="is_activated", nullable=false)
-	private boolean is_activated;
+	private boolean is_activated=false;
 
 	@Column(name="email", nullable=false)
 	private String email;

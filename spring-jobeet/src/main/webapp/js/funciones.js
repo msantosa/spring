@@ -1,4 +1,8 @@
 function validarFormJob() {
+	if(document.getElementById('type').selectedIndex==0){
+		alert("Debe seleccionar el tipo de contrato del trabajo");
+		return false;
+	}
 	if(document.getElementById('company').value==""){
 		alert("Debe informarse el nombre de la compa\u00f1\u00eda");
 		return false;
