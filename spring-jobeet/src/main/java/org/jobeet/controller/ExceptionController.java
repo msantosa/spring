@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,6 +37,17 @@ public class ExceptionController {
 	
 	@ExceptionHandler(Exception.class)
 	public ModelAndView handleException(final Exception ex) {
+		logger.info("handleException - Catching: " + ex.getClass().getSimpleName());
+		logger.info("handleException - Catching: " + ex.getCause());
+		logger.info("handleException - Catching: " + ex.hashCode());
+		logger.info("handleException - Catching: " + ex.getMessage());
+		ModelAndView modelAndView = new ModelAndView("error.page");
+		modelAndView.addObject("exception", ex);
+		return modelAndView;
+	}
+	
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ModelAndView handleExceptionConstraint(final ConstraintViolationException ex) {
 		logger.info("handleException - Catching: " + ex.getClass().getSimpleName());
 		logger.info("handleException - Catching: " + ex.getCause());
 		logger.info("handleException - Catching: " + ex.hashCode());
