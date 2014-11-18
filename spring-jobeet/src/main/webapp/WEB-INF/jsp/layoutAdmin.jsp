@@ -24,7 +24,7 @@
 		</div>
 		 <div id="menu">
 			<ul>
-				<li><a href="#">Job</a></li>
+				<li><a href="#">Jobs</a></li>
 				<li><a href="#">Categories</a></li>
 			</ul>
 		</div>
