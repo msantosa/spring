@@ -13,10 +13,12 @@ import org.jobeet.model.JobeetCategory;
 import org.jobeet.model.JobeetJob;
 import org.jobeet.service.ICategoryService;
 import org.jobeet.service.IJobService;
+import org.jobeet.validator.JobValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,16 +47,33 @@ public class JobController {
 	}
 
 	@RequestMapping(value = "/addJob", method = RequestMethod.POST)
-	public String addJob(@ModelAttribute("trabajo") JobeetJob trabajo, @RequestParam("file") MultipartFile file, BindingResult result) {
+	//public String addJob(@ModelAttribute("trabajo") JobeetJob trabajo, @RequestParam("file") MultipartFile file, BindingResult result) {
+	public String addJob(@ModelAttribute("trabajo") JobeetJob trabajo, @RequestParam("file") MultipartFile file, ModelMap model, BindingResult result){
 		/*CategoryService.addContact(contact);*/
 		System.out.println("Fichero="+file.getName());
 		System.out.println("Tamanio="+file.getSize());
 		try{
+			
+			new JobValidator().validar(trabajo, result);
+			
+			if(result.hasErrors()){
+				model.addAttribute("mensaje","Se han producido ["+result.getErrorCount()+"] errores al validar el formulario");
+				
+				List<ObjectError> errores=result.getAllErrors();
+		
+				for(ObjectError error : errores){
+					logger.debug("Errores de validación="+error.getDefaultMessage());
+				}
+				model.addAttribute("listaErrores",result.getAllErrors());
+				return "error.page";
+			}
+			
 			if (!file.isEmpty()) {
 				byte[] bytes = file.getBytes();
 
 				// Creating the directory to store file
-				String rootPath = System.getProperty("catalina.home");
+				//String rootPath = System.getProperty("catalina.home");
+				String rootPath = AppConfig.rutaImagenesLogo();
 				File dir = new File(rootPath + File.separator + "uploads/logos");
 				if (!dir.exists())
 					dir.mkdirs();
@@ -68,16 +87,18 @@ public class JobController {
 
 				logger.info("Server File Location="
 						+ serverFile.getAbsolutePath());
-
+				
+				trabajo.setLogo(file.getOriginalFilename());
 			}
-			trabajo.setLogo(file.getOriginalFilename());
+			
 			logger.info("El identificador del job es "+trabajo.getId());
 			logger.info("El tipo del job es "+trabajo.getType());
 			logger.info("Category="+trabajo.getCategory());
 			JobService.addJob(trabajo);
 			logger.info("Después de guardar el trabajo");
 		}catch(Exception e){
-			return "error";
+			model.addAttribute("exception", e);
+			return "error.page";
 		}
 		return "redirect:/";
 	}

@@ -28,4 +28,9 @@ public class AppConfig {
 	public static int getDiasAdvExpiracion(){
 		return Integer.valueOf(properties.getProperty("app.dias_advertencia_expiracion")).intValue();
 	}
+	
+	public static String rutaImagenesLogo(){
+		return properties.getProperty("app.ruta_ficheros_logos");
+	}
+	
 }
