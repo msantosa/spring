@@ -8,6 +8,7 @@ import org.jobeet.dao.IJobDao;
 import org.jobeet.model.JobeetCategory;
 import org.jobeet.model.JobeetJob;
 import org.jobeet.service.IJobService;
+import org.jobeet.utilidades.JavaSHA1Hash;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,13 +64,18 @@ public class JobServiceImpl implements IJobService{
 	@Transactional(readOnly=true)
 	public JobeetJob getJobValidadoEdicion(int idTrabajo,String token){
 		LOGGER.info("Entrada a getJobValidadoEdicion. Id="+ idTrabajo+" token="+token);
-		JobeetJob trabajo=null;;
+		JobeetJob trabajo=null;
 		
-		if(jobDAO.validarToken(idTrabajo, token)){
+		LOGGER.debug("El token introducido es:"+token);
+		LOGGER.debug("El token encriptado es:"+ JavaSHA1Hash.sha1(token));
+		
+		
+		if(jobDAO.validarToken(idTrabajo, JavaSHA1Hash.sha1(token))){
+			LOGGER.info("Se ha validado que el token introducido se corresponde con el trabajo");
 			trabajo=jobDAO.getJobById(idTrabajo);
 		}
 		
-		LOGGER.info("Entrada a getJobValidadoEdicion. Id="+ idTrabajo+" token="+token);
+		LOGGER.info("Salida a getJobValidadoEdicion. Id="+ idTrabajo+" token="+token);
 		return trabajo;
 	}
 }

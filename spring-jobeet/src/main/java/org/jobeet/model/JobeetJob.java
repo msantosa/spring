@@ -17,7 +17,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name="Job")
 public class JobeetJob {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id", nullable=false)
@@ -209,5 +208,16 @@ public class JobeetJob {
 
 	public void setCategory(JobeetCategory category) {
 		this.category = category;
+	}
+	
+	public long obtenerDiasAExpirar(){
+		final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al día 
+		Date hoy=new Date();
+		long diasAExpirar=(this.expires_at.getTime()-hoy.getTime())/MILLSECS_PER_DAY;
+		return diasAExpirar;
+	}
+	
+	public boolean estaExpirado(){
+		return this.expires_at.before(new Date());
 	}
 }

@@ -24,4 +24,8 @@ public class AppConfig {
 	public static int getDiasActivos(){
 		return Integer.valueOf(properties.getProperty("app.dias_activos")).intValue();
 	}
+	
+	public static int getDiasAdvExpiracion(){
+		return Integer.valueOf(properties.getProperty("app.dias_advertencia_expiracion")).intValue();
+	}
 }

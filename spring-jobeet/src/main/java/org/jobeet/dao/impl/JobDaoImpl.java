@@ -32,12 +32,20 @@ public class JobDaoImpl implements IJobDao {
 	public void addJob(JobeetJob trabajo) {
 		// TODO Auto-generated method stub
 		LOGGER.info("JobDaoImpl --> Entrada en añadir job");
+		String token="";
+		String tokenCifrado="";
 		
 		java.util.Date dt = new java.util.Date();
 
 		trabajo.setCreated_at(dt);
 		
-		trabajo.setToken(JavaSHA1Hash.sha1(trabajo.getEmail()+Math.floor(Math.random()*(11111-99999+1)+99999)));
+		token=trabajo.getEmail()+(int)Math.floor(Math.random()*(11111-99999+1)+99999);
+		LOGGER.debug("Token del trabajo="+token);
+		
+		tokenCifrado=JavaSHA1Hash.sha1(token);
+		LOGGER.debug("Token Cifrado="+tokenCifrado);
+		
+		trabajo.setToken(tokenCifrado);
 
 		this.sessionFactory.getCurrentSession().save(trabajo);
 		LOGGER.info("JobDaoImpl --> Salida en añadir job");
@@ -55,14 +63,11 @@ public class JobDaoImpl implements IJobDao {
 	public JobeetJob getJobById(int idTrabajo) {
 		LOGGER.info("JobDaoImpl --> Entrada en getJobById");
 		return (JobeetJob) sessionFactory.getCurrentSession().get(JobeetJob.class, idTrabajo);
-	
 	}
 
 	public List<JobeetJob> listAllJob() {
 		LOGGER.info("JobDaoImpl listAllJob <-- Entrada");
 		List listaTrabajo=sessionFactory.getCurrentSession().createCriteria(JobeetJob.class).list();
-		if(listaTrabajo!=null)
-			LOGGER.info("Tamaño de lista="+listaTrabajo.size());
 		LOGGER.info("JobDaoImpl listAllCategory --> Salida");
 		return listaTrabajo;
 	}

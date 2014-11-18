@@ -1,13 +1,16 @@
 package org.jobeet.controller;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.jobeet.config.AppConfig;
 import org.jobeet.model.JobeetCategory;
 import org.jobeet.model.JobeetJob;
 import org.jobeet.service.ICategoryService;
 import org.jobeet.service.IJobService;
-import org.jobeet.utilidades.JavaSHA1Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -56,16 +59,20 @@ public class JobController {
 		return "showJob";
 	}
 	
-	@RequestMapping(value = "/showJob/{idTrabajo}/{regexp1:[a-z0-9@\\.]+}", method = RequestMethod.GET)
-	public String showJobAdmin(@PathVariable("idTrabajo") Integer idTrabajo,@PathVariable("regexp1") String token,ModelMap model) {
+	@RequestMapping(value = "/showJob/{idTrabajo}/{token:[a-z0-9@\\.]+}", method = RequestMethod.GET)
+	public String showJobAdmin(@PathVariable("idTrabajo") Integer idTrabajo,@PathVariable("token") String token,ModelMap model) {
 		logger.info("Recuperamos el trabajo en función del id "+idTrabajo);
-		logger.debug("El token introducido es:"+token);
-		logger.debug("El token encriptado es:"+ JavaSHA1Hash.sha1(token));
+		
 		JobeetJob trabajoEditar=JobService.getJobValidadoEdicion(idTrabajo, token);
+		logger.debug("trabajo a editar="+trabajoEditar);
 		
 		if(trabajoEditar!=null){
 			logger.info("El trabajo introducido se ha encontrado y es válido");
-			model.addAttribute("trabajo", JobService.getJobValidadoEdicion(idTrabajo, token));
+			logger.debug("Fecha de expiración="+trabajoEditar.getExpires_at());
+
+			model.addAttribute("trabajo", trabajoEditar);
+			model.addAttribute("diasAdvertencia", AppConfig.getDiasAdvExpiracion());
+			model.addAttribute("diasProrroga", AppConfig.getDiasActivos());
 			return "showJobAdmin";
 		}
 		else{
@@ -73,5 +80,14 @@ public class JobController {
 			model.addAttribute("mensaje", "No se han encontrado datos");
 			return "mensajeGenerico";
 		}
+	}
+	
+	@RequestMapping(value="/editJob", method = RequestMethod.GET)
+	public String editJob(ModelMap model) {
+		logger.info("Hemos entrado en newJob");
+		List<JobeetCategory> listaCategorias=CategoryService.listAllCategory();
+		model.addAttribute("trabajo",new JobeetJob());
+		model.addAttribute("listaCategorias", listaCategorias);
+		return "editJob";
 	}
 }
