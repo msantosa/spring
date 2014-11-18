@@ -139,4 +139,37 @@ public class JobDaoTest extends AbstractTransactionalJUnit4SpringContextTests{
 		System.out.println("Fin el test testValidarTokenTrabajo");
 	}
 	
+	@Test
+	public void testBuscarPorEjemplo() {
+		System.out.println("Iniciamos el test testBuscarPorEjemplo");
+		int idTrabajo=73;
+		JobeetJob trabajoAux=new JobeetJob();
+		
+		System.out.println("PRIMERA PRUEBA");
+		//trabajoAux.setLocation("Madrid");
+		//trabajoAux.setPosition("Analista");
+		trabajoAux.setIs_activated(true);
+		trabajoAux.setIs_public(true);
+		List<JobeetJob> listaTrabajos=jobDAO.getJobByExample(trabajoAux);
+		
+		System.out.println("Tamaño del vector encontrado="+listaTrabajos.size());
+		for(JobeetJob trabajo: listaTrabajos){
+			System.out.println("El id del trabajo es="+trabajo.getId());
+		}
+		
+		System.out.println("SEGUNDA PRUEBA");
+		trabajoAux=new JobeetJob();
+		trabajoAux.setToken("pepito@everis.com60639.0");
+		trabajoAux.setIs_activated(true);
+		trabajoAux.setIs_public(true);
+		listaTrabajos=jobDAO.getJobByExample(trabajoAux);
+		
+		System.out.println("Tamaño del vector encontrado="+listaTrabajos.size());
+		for(JobeetJob trabajo: listaTrabajos){
+			System.out.println("El id del trabajo es="+trabajo.getId());
+		}
+		
+		System.out.println("Fin el test testBuscarPorEjemplo");
+	}
+	
 }

@@ -107,7 +107,13 @@ public class JobController {
 	@RequestMapping(value = "/showJob/{idTrabajo}", method = RequestMethod.GET)
 	public String showJob(@PathVariable Integer idTrabajo, ModelMap model) {
 		logger.info("Recuperamos el trabajo en función del id "+idTrabajo);
-		model.addAttribute("trabajo", JobService.getJobById(idTrabajo));
+		JobeetJob trabajo=JobService.getJobById(idTrabajo);
+		//Se verifica si se puede acceder al detalle del trabajo.
+		if(!trabajo.isIs_activated()){
+			model.addAttribute("mensaje", "No se encuentran datos");
+			return "mensajeGenerico";
+		}
+		model.addAttribute("trabajo", trabajo);
 		return "showJob";
 	}
 

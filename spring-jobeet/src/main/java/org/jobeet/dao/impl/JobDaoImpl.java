@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
@@ -64,6 +65,19 @@ public class JobDaoImpl implements IJobDao {
 		LOGGER.info("JobDaoImpl --> Entrada en getJobById");
 		return (JobeetJob) sessionFactory.getCurrentSession().get(JobeetJob.class, idTrabajo);
 	}
+	
+	public List<JobeetJob> getJobByExample(JobeetJob trabajoBuscar) {
+		LOGGER.info("JobDaoImpl --> Entrada en getJobByExample");
+		
+		/*Los boolean siempre están presentes en la query. Si no se definen por defecto se setean a false*/
+		Example ejemplo=Example.create(trabajoBuscar)
+				.enableLike()
+				.ignoreCase();
+		
+		List<JobeetJob> listTrabajos=sessionFactory.getCurrentSession().createCriteria(JobeetJob.class).add(ejemplo).list();
+		
+		return listTrabajos;
+	}
 
 	public List<JobeetJob> listAllJob() {
 		LOGGER.info("JobDaoImpl listAllJob <-- Entrada");
@@ -80,6 +94,7 @@ public class JobDaoImpl implements IJobDao {
 		List listaTrabajos=null;
 			listaTrabajos = sessionFactory.getCurrentSession().createCriteria(JobeetJob.class)
 					.add(Restrictions.ge("expires_at", hoy))
+					.add(Restrictions.eq("is_activated", true))
 					.addOrder( Property.forName("expires_at").desc()).list();
 			
 		LOGGER.info("JobDaoImpl listarTrabajosActivos <-- Salida");
@@ -96,6 +111,7 @@ public class JobDaoImpl implements IJobDao {
 		
 		query.add(Restrictions.ge("expires_at", hoy))
 				.add(Restrictions.eq("category", categoria))
+				.add(Restrictions.eq("is_activated", true))
 				.addOrder( Property.forName("expires_at").desc());
 		
 		//Si tamanio es igual a -1 se muestran todos los trabajos activos
@@ -117,6 +133,7 @@ public class JobDaoImpl implements IJobDao {
 		List listaTrabajos=sessionFactory.getCurrentSession().createCriteria(JobeetJob.class)
 				.add(Restrictions.ge("expires_at", hoy))
 				.add(Restrictions.eq("category", categoria))
+				.add(Restrictions.eq("is_activated", true))
 				.setFirstResult((numPagina-1)*tamanioPagina)
 				.setMaxResults(tamanioPagina)
 				.list();
@@ -134,6 +151,7 @@ public class JobDaoImpl implements IJobDao {
 		Integer numTrabajos=(Integer) sessionFactory.getCurrentSession().createCriteria(JobeetJob.class)
 				.setProjection(Projections.rowCount())
 				.add(Restrictions.ge("expires_at", hoy))
+				.add(Restrictions.eq("is_activated", true))
 				.add(Restrictions.eq("category", categoria)).uniqueResult();
 		
 		

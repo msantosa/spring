@@ -55,7 +55,7 @@ public class JobeetJob {
 
 	/*Whether the job can also be published on affiliate websites or not.*/
 	@Column(name="is_public", nullable=false)
-	private boolean is_public;
+	private boolean is_public=false;
 
 	@Column(name="is_activated", nullable=false)
 	private boolean is_activated=false;
