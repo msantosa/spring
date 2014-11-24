@@ -14,10 +14,11 @@
  
             <div class="search">
               <h2>Ask for a job</h2>
-              <form action="" method="get">
+              <form action="/busquedaAjax.htm" method="get">
                 <input type="text" name="keywords"
                   id="search_keywords" />
                 <input type="submit" value="search" />
+                <img id="loader" src="${pageContext.request.contextPath}/legacy/images/loader.gif" style="vertical-align: middle; display: none" />
                 <div class="help">
                   Enter some keywords (city, country, position, ...)
                 </div>

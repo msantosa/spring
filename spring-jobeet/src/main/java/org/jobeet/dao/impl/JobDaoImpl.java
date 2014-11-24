@@ -68,7 +68,6 @@ public class JobDaoImpl implements IJobDao {
 	
 	public List<JobeetJob> getJobByExample(JobeetJob trabajoBuscar) {
 		LOGGER.info("JobDaoImpl --> Entrada en getJobByExample");
-		
 		/*Los boolean siempre están presentes en la query. Si no se definen por defecto se setean a false*/
 		Example ejemplo=Example.create(trabajoBuscar)
 				.enableLike()

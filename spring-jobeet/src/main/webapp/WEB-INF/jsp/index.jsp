@@ -11,17 +11,19 @@
 						</div>
 						<h1><a href="${pageContext.request.contextPath}/showCategory/${categoria.id}/1">${categoria.getName()}</a></h1>
 					</div>
+					<table class="jobs">
 					<c:forEach items="${categoria.trabajos}" var="trabajo"
 						varStatus="loopStatus">
-						<table class="jobs">
+						
 							<tr class="${loopStatus.index % 2 == 0 ? 'even' : 'odd'}">
 								<td class="location">${trabajo.location}</td>
 								<td class="position"><a
 									href="${pageContext.request.contextPath}/showJob/${trabajo.id}">${trabajo.position}</a></td>
 								<td class="company">${trabajo.company}</td>
 							</tr>
-						</table>
+						
 					</c:forEach>
+					</table>
 					<c:if test="${categoriaTrabajosActivos.get(categoria.id).intValue()>0}">
 						<div class="more_jobs">
 							and <a href="${pageContext.request.contextPath}/showCategory/${categoria.id}/1">${categoriaTrabajosActivos.get(categoria.id).intValue()}</a> more...

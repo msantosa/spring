@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class IndexController {
@@ -24,6 +25,14 @@ public class IndexController {
 	private IJobService JobService;
 	
 	private static final Logger logger = Logger.getLogger(IndexController.class);
+	
+	public ICategoryService getCategoryService() {
+		return CategoryService;
+	}
+
+	public void setCategoryService(ICategoryService categoryService) {
+		CategoryService = categoryService;
+	}
 	
 	@RequestMapping(value="/")
 	public String index(ModelMap model){
@@ -60,12 +69,5 @@ public class IndexController {
 		model.addAttribute("message", "Hello Spring MVC Framework!");
 		return "hello";
 	}
-
-	public ICategoryService getCategoryService() {
-		return CategoryService;
-	}
-
-	public void setCategoryService(ICategoryService categoryService) {
-		CategoryService = categoryService;
-	}
+	
 }

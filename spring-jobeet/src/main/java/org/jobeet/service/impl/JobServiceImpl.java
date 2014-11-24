@@ -1,11 +1,12 @@
 package org.jobeet.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
+import org.jobbet.beans.JobBean;
 import org.jobeet.dao.IJobDao;
-import org.jobeet.model.JobeetCategory;
 import org.jobeet.model.JobeetJob;
 import org.jobeet.service.IJobService;
 import org.jobeet.utilidades.JavaSHA1Hash;
@@ -77,5 +78,111 @@ public class JobServiceImpl implements IJobService{
 		
 		LOGGER.info("Salida a getJobValidadoEdicion. Id="+ idTrabajo+" token="+token);
 		return trabajo;
+	}
+	
+	@Transactional(readOnly=true)
+	public List<JobBean> getJobByExample(JobeetJob trabajoBuscar){
+		LOGGER.info("Entrada a getJobByExample");
+		List<JobBean> listaTrabajos=new ArrayList();
+		List<JobeetJob> listadoTrabajosDAO=jobDAO.getJobByExample(trabajoBuscar);
+		
+		for(JobeetJob trabajoAux : listadoTrabajosDAO){
+			JobBean trabajoBean=new JobBean();
+			trabajoBean.setId(trabajoAux.getId());
+			/*trabajoBean.setCategory(trabajoAux.getCategory());*/
+			trabajoBean.setType(trabajoAux.getType());
+			trabajoBean.setCompany(trabajoAux.getCompany());
+			trabajoBean.setLogo(trabajoAux.getLogo());
+			trabajoBean.setUrl(trabajoAux.getLogo());
+			trabajoBean.setPosition(trabajoAux.getPosition());
+			trabajoBean.setLocation(trabajoAux.getLocation());
+			trabajoBean.setDescription(trabajoAux.getDescription());
+			trabajoBean.setHow_to_apply(trabajoAux.getHow_to_apply());
+			trabajoBean.setToken(trabajoAux.getToken());
+			trabajoBean.setIs_public(trabajoAux.isIs_public());
+			trabajoBean.setIs_activated(trabajoAux.isIs_activated());
+			trabajoBean.setEmail(trabajoAux.getEmail());
+			trabajoBean.setExpires_at(trabajoAux.getExpires_at());
+			trabajoBean.setCreated_at(trabajoAux.getCreated_at());
+			trabajoBean.setUpdated_at(trabajoAux.getUpdated_at());
+			
+			listaTrabajos.add(trabajoBean);
+		}
+		
+		
+		LOGGER.info("Salida a getJobByExample");
+		return listaTrabajos;
+	}
+	
+	@Transactional(readOnly=true)
+	public List<JobBean> buscarTrabajoPatron(String patronBusqueda){
+		LOGGER.info("Entrada a buscarTrabajoPatron");
+		List<JobBean> listaTrabajos=new ArrayList();
+		
+		/*Location*/
+		JobeetJob trabajoBusqueda=new JobeetJob();
+		trabajoBusqueda.setLocation(patronBusqueda+"%");
+		trabajoBusqueda.setIs_public(true);
+		trabajoBusqueda.setIs_activated(true);
+		
+		List<JobeetJob> listadoTrabajosDAO=jobDAO.getJobByExample(trabajoBusqueda);
+		
+		for(JobeetJob trabajoAux : listadoTrabajosDAO){
+			JobBean trabajoBean=parsearJobeetJob(trabajoAux);
+			listaTrabajos.add(trabajoBean);
+		}
+		
+		/*Position*/
+		trabajoBusqueda=new JobeetJob();
+		trabajoBusqueda.setPosition(patronBusqueda+"%");
+		trabajoBusqueda.setIs_public(true);
+		trabajoBusqueda.setIs_activated(true);
+		
+		listadoTrabajosDAO=jobDAO.getJobByExample(trabajoBusqueda);
+		
+		for(JobeetJob trabajoAux : listadoTrabajosDAO){
+			JobBean trabajoBean=parsearJobeetJob(trabajoAux);
+			listaTrabajos.add(trabajoBean);
+		}
+		
+		/*Company*/
+		trabajoBusqueda=new JobeetJob();
+		trabajoBusqueda.setCompany(patronBusqueda+"%");
+		trabajoBusqueda.setIs_public(true);
+		trabajoBusqueda.setIs_activated(true);
+		
+		listadoTrabajosDAO=jobDAO.getJobByExample(trabajoBusqueda);
+		
+		for(JobeetJob trabajoAux : listadoTrabajosDAO){
+			JobBean trabajoBean=parsearJobeetJob(trabajoAux);
+			listaTrabajos.add(trabajoBean);
+		}
+		
+		
+		LOGGER.info("Salida a buscarTrabajoPatron");
+		return listaTrabajos;
+	}
+	
+	public JobBean parsearJobeetJob(JobeetJob trabajoAux){
+		JobBean trabajoBean=new JobBean();
+		trabajoBean.setId(trabajoAux.getId());
+		/*trabajoBean.setCategory(trabajoAux.getCategory());*/
+		trabajoBean.setType(trabajoAux.getType());
+		trabajoBean.setCompany(trabajoAux.getCompany());
+		trabajoBean.setLogo(trabajoAux.getLogo());
+		trabajoBean.setUrl(trabajoAux.getLogo());
+		trabajoBean.setPosition(trabajoAux.getPosition());
+		trabajoBean.setLocation(trabajoAux.getLocation());
+		trabajoBean.setDescription(trabajoAux.getDescription());
+		trabajoBean.setHow_to_apply(trabajoAux.getHow_to_apply());
+		trabajoBean.setToken(trabajoAux.getToken());
+		trabajoBean.setIs_public(trabajoAux.isIs_public());
+		trabajoBean.setIs_activated(trabajoAux.isIs_activated());
+		trabajoBean.setEmail(trabajoAux.getEmail());
+		trabajoBean.setExpires_at(trabajoAux.getExpires_at());
+		trabajoBean.setCreated_at(trabajoAux.getCreated_at());
+		trabajoBean.setUpdated_at(trabajoAux.getUpdated_at());
+		
+		return trabajoBean;
 	}
 }

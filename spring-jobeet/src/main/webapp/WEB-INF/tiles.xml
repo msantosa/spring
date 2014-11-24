@@ -23,6 +23,11 @@
         <put-list-attribute name="ListCss" inherit="true">
 		    <add-attribute value="/css/jobs.css" />
 		</put-list-attribute>
+		<put-list-attribute name="ListJS">
+			<add-attribute value="/js/jquery.1.10.2.min.js" />
+			<add-attribute value="/js/jquery.autocomplete.min.js" />
+			<add-attribute value="/js/search.js" />
+		</put-list-attribute>
     </definition>
     
     <definition name="hello" extends="base.definition">
@@ -127,6 +132,7 @@
 		<put-list-attribute name="ListJS">
 			<add-attribute value="/js/jquery.1.10.2.min.js" />
 			<add-attribute value="/js/jquery.autocomplete.min.js" />
+			<add-attribute value="/js/search.js" />
 		</put-list-attribute>
     </definition>
 

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.jobbet.beans.JobBean;
 import org.jobeet.config.AppConfig;
 import org.jobeet.model.JobeetCategory;
 import org.jobeet.model.JobeetJob;
@@ -210,5 +211,13 @@ public class JobController {
 		return result;
 	}
 	/*PRUEBA AJAX*/
+	
+	@RequestMapping(value="/buscadorTrabajos/{patroBusqueda}", method = RequestMethod.POST, produces="application/json")
+	public @ResponseBody List<JobBean> buscadorTrabajos(@PathVariable("patroBusqueda") String patronBusqueda, ModelMap model) {
+		List<JobBean> listaTrabajos=null;
+		listaTrabajos=JobService.buscarTrabajoPatron(patronBusqueda);
+		
+		return listaTrabajos;
+	}
 
 }
