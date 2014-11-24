@@ -3,6 +3,7 @@ package org.jobeet.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.jobeet.config.AppConfig;
 import org.jobeet.model.JobeetCategory;
 import org.jobeet.model.JobeetJob;
+import org.jobeet.model.Tag;
 import org.jobeet.service.ICategoryService;
 import org.jobeet.service.IJobService;
 import org.jobeet.validator.JobValidator;
@@ -37,7 +39,22 @@ public class JobController {
 	private IJobService JobService;
 
 	private static final Logger logger = Logger.getLogger(JobController.class);
-
+	
+	/*PRUEBA AJAX*/
+	List<Tag> data = new ArrayList<Tag>();
+	
+	public JobController(){
+		data.add(new Tag(1, "ruby"));
+		data.add(new Tag(2, "rails"));
+		data.add(new Tag(3, "c / c++"));
+		data.add(new Tag(4, ".net"));
+		data.add(new Tag(5, "python"));
+		data.add(new Tag(6, "java"));
+		data.add(new Tag(7, "javascript"));
+		data.add(new Tag(8, "jscript"));
+	}
+	/*PRUEBA AJAX*/
+	
 	@RequestMapping(value="/newJob", method = RequestMethod.GET)
 	public String newJob(ModelMap model) {
 		logger.info("Hemos entrado en newJob");
@@ -163,12 +180,35 @@ public class JobController {
 		return tipoContratos;
 	}
 	
-	@RequestMapping(value="/trabajoJson/{idTrabajo}", method = RequestMethod.GET)
-	public @ResponseBody JobeetJob trabajoJson(@PathVariable("idTrabajo") Integer idTrabajo, Map model) {
+	/*PRUEBA AJAX*/
+	@RequestMapping(value="/ajax", method = RequestMethod.GET)
+	public String trabajoJson(Map model) {
 		logger.info("Hemos entrado en trabajoJson");
-		JobeetJob trabajo=(JobeetJob) JobService.getJobById(idTrabajo);
 		logger.info("Salida en trabajoJson");
-		return trabajo;
+		return "ajax";
 	}
+	
+	@RequestMapping(value = "/getTags", method = RequestMethod.GET)
+	public @ResponseBody
+	List<Tag> getTags(@RequestParam String tagName) {
+
+		return simulateSearchResult(tagName);
+
+	}
+
+	private List<Tag> simulateSearchResult(String tagName) {
+
+		List<Tag> result = new ArrayList<Tag>();
+		
+		// iterate a list and filter by tagName
+		for (Tag tag : data) {
+			if (tag.getTagName().contains(tagName)) {
+				result.add(tag);
+			}
+		}
+
+		return result;
+	}
+	/*PRUEBA AJAX*/
 
 }
