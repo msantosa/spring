@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -160,6 +161,14 @@ public class JobController {
 		tipoContratos.put("Horario de noche", "Horario de noche");
 
 		return tipoContratos;
+	}
+	
+	@RequestMapping(value="/trabajoJson/{idTrabajo}", method = RequestMethod.GET)
+	public @ResponseBody JobeetJob trabajoJson(@PathVariable("idTrabajo") Integer idTrabajo, Map model) {
+		logger.info("Hemos entrado en trabajoJson");
+		JobeetJob trabajo=(JobeetJob) JobService.getJobById(idTrabajo);
+		logger.info("Salida en trabajoJson");
+		return trabajo;
 	}
 
 }
