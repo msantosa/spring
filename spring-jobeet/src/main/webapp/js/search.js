@@ -27,7 +27,6 @@ $(document).ready(function()
               var json = $.parseJSON(data);
               //now json variable contains data in json format
               //let's display a few items
-              //alert(json);
               pagina=resultadoBusqueda(json);
               $("#jobs").html(pagina);
               $('#loader').hide(); 
@@ -39,7 +38,6 @@ $(document).ready(function()
 	          var json = $.parseJSON(data);
 	          //now json variable contains data in json format
 	          //let's display a few items
-	          //alert(json);
 	          pagina=resultadoBusqueda(json);
 	          $("#jobs").html(pagina);
 	          $('#loader').hide(); 
@@ -53,7 +51,7 @@ function resultadoBusqueda(data){
 	var html="<div id=\"jobs\">No se han encontrado datos</div>";
 	
 	if(data.length>0){
-		html="<table class=\"jobs\">"
+		html="<div id=\"jobs\"><table class=\"jobs\">"
 		
 		for(i=0;i<data.length;i++){
 			if(i%2==0){
@@ -69,7 +67,7 @@ function resultadoBusqueda(data){
 			html+="</tr>";
 		}
 		
-		html+="</table>";
+		html+="</table></div>";
 	}
 	
 	return html;
