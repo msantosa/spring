@@ -30,7 +30,7 @@ public class JobDaoImpl implements IJobDao {
 		this.sessionFactory = sessionFactory;
 	}
 	
-	public void addJob(JobeetJob trabajo) {
+	public String addJob(JobeetJob trabajo) {
 		// TODO Auto-generated method stub
 		LOGGER.info("JobDaoImpl --> Entrada en añadir job");
 		String token="";
@@ -39,6 +39,7 @@ public class JobDaoImpl implements IJobDao {
 		java.util.Date dt = new java.util.Date();
 
 		trabajo.setCreated_at(dt);
+		trabajo.setUpdated_at(dt);
 		
 		token=trabajo.getEmail()+(int)Math.floor(Math.random()*(11111-99999+1)+99999);
 		LOGGER.debug("Token del trabajo="+token);
@@ -50,6 +51,8 @@ public class JobDaoImpl implements IJobDao {
 
 		this.sessionFactory.getCurrentSession().save(trabajo);
 		LOGGER.info("JobDaoImpl --> Salida en añadir job");
+		
+		return token;
 
 	}
 	

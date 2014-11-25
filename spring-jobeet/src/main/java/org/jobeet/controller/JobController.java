@@ -71,6 +71,8 @@ public class JobController {
 		/*CategoryService.addContact(contact);*/
 		System.out.println("Fichero="+file.getName());
 		System.out.println("Tamanio="+file.getSize());
+		String tokenAcceso="";
+		
 		try{
 			
 			new JobValidator().validar(trabajo, result);
@@ -113,13 +115,14 @@ public class JobController {
 			logger.info("El identificador del job es "+trabajo.getId());
 			logger.info("El tipo del job es "+trabajo.getType());
 			logger.info("Category="+trabajo.getCategory());
-			JobService.addJob(trabajo);
+			
+			tokenAcceso=JobService.addJob(trabajo);
 			logger.info("Después de guardar el trabajo");
 		}catch(Exception e){
 			model.addAttribute("exception", e);
 			return "error.page";
 		}
-		return "redirect:/";
+		return "redirect:/showJob/"+trabajo.getId()+"/"+tokenAcceso;
 	}
 
 
@@ -159,11 +162,15 @@ public class JobController {
 		}
 	}
 
-	@RequestMapping(value="/editJob", method = RequestMethod.GET)
-	public String editJob(ModelMap model) {
-		logger.info("Hemos entrado en newJob");
+	@RequestMapping(value="/editJob/{idTrabajo}", method = RequestMethod.GET)
+	public String editJob(@PathVariable("idTrabajo") Integer idTrabajo,ModelMap model) {
+		logger.info("Hemos entrado en editJob");
 		List<JobeetCategory> listaCategorias=CategoryService.listAllCategory();
+		JobeetJob trabajo=JobService.getJobById(idTrabajo);
+		JobBean trabajoRecuperado=JobService.parsearJobeetJob(trabajo);
+		
 		model.addAttribute("trabajo",new JobeetJob());
+		model.addAttribute("trabajoEditar",trabajoRecuperado);
 		model.addAttribute("listaCategorias", listaCategorias);
 		return "editJob";
 	}

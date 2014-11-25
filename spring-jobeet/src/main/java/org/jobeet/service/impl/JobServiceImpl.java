@@ -39,10 +39,11 @@ public class JobServiceImpl implements IJobService{
 	}
 
 	@Transactional(readOnly=false)
-	public void addJob(JobeetJob trabajo){
+	public String addJob(JobeetJob trabajo){
 		LOGGER.info("JobServiceImpl --> Entrada en añadir job");
-		getJobDAO().addJob(trabajo);
+		String token=getJobDAO().addJob(trabajo);
 		LOGGER.info("JobServiceImpl --> Entrada en añadir job");
+		return token;
 	}
 	
 	@Transactional(readOnly=true)
@@ -169,7 +170,7 @@ public class JobServiceImpl implements IJobService{
 		/*trabajoBean.setCategory(trabajoAux.getCategory());*/
 		trabajoBean.setType(trabajoAux.getType());
 		trabajoBean.setCompany(trabajoAux.getCompany());
-		trabajoBean.setLogo(trabajoAux.getLogo());
+		trabajoBean.setLogo(trabajoAux.getUrl());
 		trabajoBean.setUrl(trabajoAux.getLogo());
 		trabajoBean.setPosition(trabajoAux.getPosition());
 		trabajoBean.setLocation(trabajoAux.getLocation());

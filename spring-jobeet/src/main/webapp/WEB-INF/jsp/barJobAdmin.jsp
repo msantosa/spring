@@ -3,8 +3,8 @@
 <div id="job_actions">
 	<h3>Admin</h3>
 	<ul>
-		<c:if test="${trabajo.is_activated}">
-			<li><a href="${pageContext.request.contextPath}/newJob">Edit</a></li>
+		<c:if test="${not trabajo.is_activated}">
+			<li><a href="${pageContext.request.contextPath}/editJob/${trabajo.id}">Edit</a></li>
 			<li><a href="${pageContext.request.contextPath}/publishJob">Publish</a></li>
 		</c:if>
 		<li><a href="${pageContext.request.contextPath}/deleteJob">Delete</a></li>
@@ -25,7 +25,7 @@
 				</c:choose>
 			</c:when>
 			<c:otherwise>
-				<li>[Bookmark this <a href="${pageContext.request.requestURL}">job</a> to manage this job in the future.]</li>
+				<li>[Bookmark this <a href="${requestScope['javax.servlet.forward.query_string']}">job</a> to manage this job in the future.]</li>
 			</c:otherwise>
 		</c:choose>
 	</ul>

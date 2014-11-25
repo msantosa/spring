@@ -50,7 +50,7 @@
     
     <definition name="editJob" extends="base.definition">
         <put-attribute name="title" value="Jobeet - Your best job board" />
-        <put-attribute name="body" value="/WEB-INF/jsp/newjob.jsp" />
+        <put-attribute name="body" value="/WEB-INF/jsp/editjob.jsp" />
         <put-list-attribute name="ListCss" inherit="true">
 		    <add-attribute value="/css/job.css" />
 		    <add-attribute value="/css/dhtmlgoodies_calendar.css" />
@@ -58,6 +58,7 @@
 		<put-list-attribute name="ListJS">
 			<add-attribute value="/js/dhtmlgoodies_calendar.js" />
 			<add-attribute value="/js/funciones.js" />
+			<add-attribute value="/js/jquery.1.10.2.min.js" />
 		</put-list-attribute>
     </definition>
     

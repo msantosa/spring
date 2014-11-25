@@ -1,12 +1,16 @@
+var htmlInicialBusqueda;
+
 $(document).ready(function()
 {
+  htmlInicialBusqueda=$("#jobs").html();
   $('.search input[type="submit"]').hide();
  
   $('#search_keywords').keyup(function(key)
   {
-    if (this.value.length >= 3 || this.value == '')
+    if (this.value.length >= 3)
     {
-      //alert("Mayor que 3");
+ 
+    	//alert("Mayor que 3");
       //alert("query:"+ this.value + '*');
       $('#loader').show();
       /*$('#jobs').load(
@@ -43,6 +47,9 @@ $(document).ready(function()
 	          $('#loader').hide(); 
 	      }
       });
+    }else if(this.value == ''){
+    	$("#jobs").html(htmlInicialBusqueda);
+        $('#loader').hide();
     }
   });
 });
@@ -51,7 +58,8 @@ function resultadoBusqueda(data){
 	var html="<div id=\"jobs\">No se han encontrado datos</div>";
 	
 	if(data.length>0){
-		html="<div id=\"jobs\"><table class=\"jobs\">"
+		html="<div class=\"category\"><h1><a href=\"#\">Resultado B&uacute;squeda</a></h1>";
+		html+="<div id=\"jobs\"><table class=\"jobs\">"
 		
 		for(i=0;i<data.length;i++){
 			if(i%2==0){
