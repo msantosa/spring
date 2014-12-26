@@ -1,11 +1,15 @@
 package org.jobeet.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.jobbet.beans.JobBean;
+import org.jobeet.config.AppConfig;
 import org.jobeet.dao.IJobDao;
 import org.jobeet.model.JobeetJob;
 import org.jobeet.service.IJobService;
@@ -41,7 +45,23 @@ public class JobServiceImpl implements IJobService{
 	@Transactional(readOnly=false)
 	public String addJob(JobeetJob trabajo){
 		LOGGER.info("JobServiceImpl --> Entrada en añadir job");
-		String token=getJobDAO().addJob(trabajo);
+		String token="";
+		String tokenCifrado="";
+		
+		java.util.Date dt = new java.util.Date();
+
+		trabajo.setCreated_at(dt);
+		trabajo.setUpdated_at(dt);
+		
+		token=trabajo.getEmail()+(int)Math.floor(Math.random()*(11111-99999+1)+99999);
+		LOGGER.debug("Token del trabajo="+token);
+		
+		tokenCifrado=JavaSHA1Hash.sha1(token);
+		LOGGER.debug("Token Cifrado="+tokenCifrado);
+		
+		trabajo.setToken(tokenCifrado);
+		
+		getJobDAO().guardarJob(trabajo);
 		LOGGER.info("JobServiceImpl --> Entrada en añadir job");
 		return token;
 	}
@@ -89,27 +109,8 @@ public class JobServiceImpl implements IJobService{
 		
 		for(JobeetJob trabajoAux : listadoTrabajosDAO){
 			JobBean trabajoBean=new JobBean();
-			trabajoBean.setId(trabajoAux.getId());
-			/*trabajoBean.setCategory(trabajoAux.getCategory());*/
-			trabajoBean.setType(trabajoAux.getType());
-			trabajoBean.setCompany(trabajoAux.getCompany());
-			trabajoBean.setLogo(trabajoAux.getLogo());
-			trabajoBean.setUrl(trabajoAux.getLogo());
-			trabajoBean.setPosition(trabajoAux.getPosition());
-			trabajoBean.setLocation(trabajoAux.getLocation());
-			trabajoBean.setDescription(trabajoAux.getDescription());
-			trabajoBean.setHow_to_apply(trabajoAux.getHow_to_apply());
-			trabajoBean.setToken(trabajoAux.getToken());
-			trabajoBean.setIs_public(trabajoAux.isIs_public());
-			trabajoBean.setIs_activated(trabajoAux.isIs_activated());
-			trabajoBean.setEmail(trabajoAux.getEmail());
-			trabajoBean.setExpires_at(trabajoAux.getExpires_at());
-			trabajoBean.setCreated_at(trabajoAux.getCreated_at());
-			trabajoBean.setUpdated_at(trabajoAux.getUpdated_at());
-			
-			listaTrabajos.add(trabajoBean);
+			listaTrabajos.add(parsearJobeetJob(trabajoAux));
 		}
-		
 		
 		LOGGER.info("Salida a getJobByExample");
 		return listaTrabajos;
@@ -159,8 +160,53 @@ public class JobServiceImpl implements IJobService{
 			listaTrabajos.add(trabajoBean);
 		}
 		
+		/*System.out.println("Antes de ordenar");
+		for(JobBean trabajo : listaTrabajos){
+			System.out.println("ID Trabajo="+trabajo.getId()+ " Fecha Expiración="+trabajo.getExpires_at());
+		}*/
+		//Ordenamos la lista de mayor fecha de expiración más próxima a más alejada
+		Collections.sort(listaTrabajos, new Comparator() {
+			public int compare(Object o1, Object o2) {
+				return ((JobBean)o1).getExpires_at().compareTo(((JobBean)o2).getExpires_at());
+			}
+		});
+		
+		/*System.out.println("Después de ordenar");
+		for(JobBean trabajo : listaTrabajos){
+			System.out.println("ID Trabajo="+trabajo.getId()+ " Fecha Expiración="+trabajo.getExpires_at());
+		}*/
+		
+		//Para quitar repetidos
+		//Creamos un objeto HashSet
+        HashSet hs = new HashSet();
+        //Lo cargamos con los valores del array, esto hace quite los repetidos
+        hs.addAll(listaTrabajos);
+        //Limpiamos el array
+        listaTrabajos.clear();
+        //Agregamos los valores sin repetir
+        listaTrabajos.addAll(hs);
+        //Imprimimos  el r
 		
 		LOGGER.info("Salida a buscarTrabajoPatron");
+		return listaTrabajos;
+	}
+	
+	
+	@Transactional(readOnly=true)
+	public List<JobBean> buscarTrabajoPatronPaginado(String patronBusqueda, int pagina, int numTrabajos[]){
+		LOGGER.info("Entrada a buscarTrabajoPatronPaginado");
+		List<JobBean> listaTrabajos=new ArrayList();
+		
+		List<JobeetJob> listadoTrabajosDAO=jobDAO.buscarTrabajoPatronPaginado(patronBusqueda,AppConfig.getMaxTrabajosCategoria(),pagina);
+		
+		for(JobeetJob trabajoAux : listadoTrabajosDAO){
+			JobBean trabajoBean=new JobBean();
+			listaTrabajos.add(parsearJobeetJob(trabajoAux));
+		}
+		
+		numTrabajos[0]=jobDAO.numTrabajosPatron(patronBusqueda);
+		
+		LOGGER.info("Salida a buscarTrabajoPatronPaginado");
 		return listaTrabajos;
 	}
 	
@@ -170,8 +216,8 @@ public class JobServiceImpl implements IJobService{
 		/*trabajoBean.setCategory(trabajoAux.getCategory());*/
 		trabajoBean.setType(trabajoAux.getType());
 		trabajoBean.setCompany(trabajoAux.getCompany());
-		trabajoBean.setLogo(trabajoAux.getUrl());
-		trabajoBean.setUrl(trabajoAux.getLogo());
+		trabajoBean.setLogo(trabajoAux.getLogo());
+		trabajoBean.setUrl(trabajoAux.getUrl());
 		trabajoBean.setPosition(trabajoAux.getPosition());
 		trabajoBean.setLocation(trabajoAux.getLocation());
 		trabajoBean.setDescription(trabajoAux.getDescription());
@@ -185,5 +231,17 @@ public class JobServiceImpl implements IJobService{
 		trabajoBean.setUpdated_at(trabajoAux.getUpdated_at());
 		
 		return trabajoBean;
+	}
+	
+	@Transactional(readOnly=false)
+	public void publicarTrabajo(int idTrabajo){
+		LOGGER.info("Entrada a publicarTrabajo");
+		LOGGER.info("Recuperamos el trabajo");
+		JobeetJob trabajo=jobDAO.getJobById(idTrabajo);
+		LOGGER.info("Modificamos el indicador de activo");
+		trabajo.setIs_activated(true);
+		LOGGER.info("Guardamos el trabajo modificado");
+		jobDAO.guardarJob(trabajo);
+		LOGGER.info("Salida a publicarTrabajo");
 	}
 }

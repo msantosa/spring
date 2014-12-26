@@ -25,7 +25,7 @@
 		<div>
 			<form:label path="logo">Logo</form:label>
 			<!--<form:input id="logo" path="logo"/>-->
-			<input type="file" id="file" class="file" name="file">
+			<input type="file" id="file" class="file" name="file"/>
 		</div>
 		<div>
 			<form:label path="url">Url</form:label>

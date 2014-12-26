@@ -30,30 +30,11 @@ public class JobDaoImpl implements IJobDao {
 		this.sessionFactory = sessionFactory;
 	}
 	
-	public String addJob(JobeetJob trabajo) {
+	public void guardarJob(JobeetJob trabajo) {
 		// TODO Auto-generated method stub
-		LOGGER.info("JobDaoImpl --> Entrada en añadir job");
-		String token="";
-		String tokenCifrado="";
-		
-		java.util.Date dt = new java.util.Date();
-
-		trabajo.setCreated_at(dt);
-		trabajo.setUpdated_at(dt);
-		
-		token=trabajo.getEmail()+(int)Math.floor(Math.random()*(11111-99999+1)+99999);
-		LOGGER.debug("Token del trabajo="+token);
-		
-		tokenCifrado=JavaSHA1Hash.sha1(token);
-		LOGGER.debug("Token Cifrado="+tokenCifrado);
-		
-		trabajo.setToken(tokenCifrado);
-
+		LOGGER.info("JobDaoImpl --> Entrada en guardar job");
 		this.sessionFactory.getCurrentSession().save(trabajo);
-		LOGGER.info("JobDaoImpl --> Salida en añadir job");
-		
-		return token;
-
+		LOGGER.info("JobDaoImpl --> Salida en guardar job");
 	}
 	
 	public void deleteJob(JobeetJob trabajo) {
@@ -181,6 +162,45 @@ public class JobDaoImpl implements IJobDao {
 		LOGGER.info("validarToken <-- Salida");
 		
 		return valido;
+	}
+
+	public List<JobeetJob> buscarTrabajoPatronPaginado(String patronBusqueda,int tamanioPagina, int numPagina) {
+		LOGGER.info("buscarTrabajoPatronPaginado <-- Entrada");
+
+		java.util.Date hoy = new java.util.Date();
+		
+		Criteria criterio=sessionFactory.getCurrentSession().createCriteria(JobeetJob.class)
+				.add(Restrictions.ge("expires_at", hoy))
+				.add(Restrictions.eq("is_activated", true))
+				.add(Restrictions.or(Restrictions.like("location", patronBusqueda+"%"), Restrictions.or(Restrictions.like("position", patronBusqueda+"%"),Restrictions.like("company", patronBusqueda+"%"))));
+		
+		if(numPagina!=-1){
+			criterio.setFirstResult((numPagina-1)*tamanioPagina)
+					.setMaxResults(tamanioPagina);
+		}
+		
+		List listaTrabajos=criterio.list();
+				
+		LOGGER.info("buscarTrabajoPatronPaginado <-- Salida");
+		return listaTrabajos;
+	}
+	
+	public int numTrabajosPatron(String patronBusqueda) {
+		// TODO Auto-generated method stub
+		LOGGER.info("numTrabajosPatron <-- Entrada");
+		java.util.Date hoy = new java.util.Date();
+		
+		Integer numTrabajos=(Integer) sessionFactory.getCurrentSession().createCriteria(JobeetJob.class)
+				.setProjection(Projections.rowCount())
+				.add(Restrictions.ge("expires_at", hoy))
+				.add(Restrictions.eq("is_activated", true))
+				.add(Restrictions.eq("is_activated", true))
+				.add(Restrictions.or(Restrictions.like("location", patronBusqueda+"%"), Restrictions.or(Restrictions.like("position", patronBusqueda+"%"),Restrictions.like("company", patronBusqueda+"%"))))
+				.uniqueResult();
+		
+		
+		LOGGER.info("numTrabajosPatron <-- Salida");
+		return numTrabajos.intValue();
 	}
 
 }

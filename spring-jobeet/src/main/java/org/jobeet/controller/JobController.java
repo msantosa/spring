@@ -13,7 +13,6 @@ import org.jobbet.beans.JobBean;
 import org.jobeet.config.AppConfig;
 import org.jobeet.model.JobeetCategory;
 import org.jobeet.model.JobeetJob;
-import org.jobeet.model.Tag;
 import org.jobeet.service.ICategoryService;
 import org.jobeet.service.IJobService;
 import org.jobeet.validator.JobValidator;
@@ -41,20 +40,6 @@ public class JobController {
 
 	private static final Logger logger = Logger.getLogger(JobController.class);
 	
-	/*PRUEBA AJAX*/
-	List<Tag> data = new ArrayList<Tag>();
-	
-	public JobController(){
-		data.add(new Tag(1, "ruby"));
-		data.add(new Tag(2, "rails"));
-		data.add(new Tag(3, "c / c++"));
-		data.add(new Tag(4, ".net"));
-		data.add(new Tag(5, "python"));
-		data.add(new Tag(6, "java"));
-		data.add(new Tag(7, "javascript"));
-		data.add(new Tag(8, "jscript"));
-	}
-	/*PRUEBA AJAX*/
 	
 	@RequestMapping(value="/newJob", method = RequestMethod.GET)
 	public String newJob(ModelMap model) {
@@ -95,7 +80,7 @@ public class JobController {
 				// Creating the directory to store file
 				//String rootPath = System.getProperty("catalina.home");
 				String rootPath = AppConfig.rutaImagenesLogo();
-				File dir = new File(rootPath + File.separator + "uploads/logos");
+				File dir = new File(rootPath);
 				if (!dir.exists())
 					dir.mkdirs();
 
@@ -188,43 +173,73 @@ public class JobController {
 		return tipoContratos;
 	}
 	
-	/*PRUEBA AJAX*/
-	@RequestMapping(value="/ajax", method = RequestMethod.GET)
-	public String trabajoJson(Map model) {
-		logger.info("Hemos entrado en trabajoJson");
-		logger.info("Salida en trabajoJson");
-		return "ajax";
-	}
-	
-	@RequestMapping(value = "/getTags", method = RequestMethod.GET)
-	public @ResponseBody
-	List<Tag> getTags(@RequestParam String tagName) {
-
-		return simulateSearchResult(tagName);
-
-	}
-
-	private List<Tag> simulateSearchResult(String tagName) {
-
-		List<Tag> result = new ArrayList<Tag>();
-		
-		// iterate a list and filter by tagName
-		for (Tag tag : data) {
-			if (tag.getTagName().contains(tagName)) {
-				result.add(tag);
-			}
-		}
-
-		return result;
-	}
-	/*PRUEBA AJAX*/
-	
-	@RequestMapping(value="/buscadorTrabajos/{patroBusqueda}", method = RequestMethod.POST, produces="application/json")
-	public @ResponseBody List<JobBean> buscadorTrabajos(@PathVariable("patroBusqueda") String patronBusqueda, ModelMap model) {
+	/*@RequestMapping(value="/buscadorTrabajosAjax/{patroBusqueda}", method = RequestMethod.POST, produces="application/json")
+	public @ResponseBody List<JobBean> buscadorTrabajosAjax(@PathVariable("patroBusqueda") String patronBusqueda, ModelMap model) {
+		logger.info("Entramos en buscadorTrabajosAjax");
+		logger.info("Recuperamos el listado que cumple los valores introducidos en el filtro");
 		List<JobBean> listaTrabajos=null;
-		listaTrabajos=JobService.buscarTrabajoPatron(patronBusqueda);
+		//listaTrabajos=JobService.buscarTrabajoPatron(patronBusqueda);
+		int numTrabajos[]=new int[1];
+		listaTrabajos=JobService.buscarTrabajoPatronPaginado(patronBusqueda, 1,numTrabajos);
 		
+		logger.debug("Número de trabajos="+numTrabajos[0]);
+		logger.info("Salimos de buscadorTrabajosAjax");
 		return listaTrabajos;
+	}*/
+	
+	@RequestMapping(value="/buscadorTrabajosAjax/{patroBusqueda}", method = RequestMethod.POST, produces="application/json")
+	public @ResponseBody HashMap<String,Object> buscadorTrabajosAjax(@PathVariable("patroBusqueda") String patronBusqueda, ModelMap model) {
+		logger.info("Entramos en buscadorTrabajosAjax");
+		logger.info("Recuperamos el listado que cumple los valores introducidos en el filtro");
+		List<JobBean> listaTrabajos=null;
+		//listaTrabajos=JobService.buscarTrabajoPatron(patronBusqueda);
+		int numTrabajos[]=new int[1];
+		listaTrabajos=JobService.buscarTrabajoPatronPaginado(patronBusqueda, 1,numTrabajos);
+		
+		HashMap resultado=new HashMap<String,Object>();
+		
+		resultado.put("listaTrabajos", listaTrabajos);
+		resultado.put("numTrabajosRestantes",numTrabajos[0]-AppConfig.getMaxTrabajosCategoria()>0?numTrabajos[0]-AppConfig.getMaxTrabajosCategoria():0);
+		
+		logger.debug("Número de trabajos="+numTrabajos[0]);
+		logger.info("Salimos de buscadorTrabajosAjax");
+		return resultado;
+	}
+	
+	@RequestMapping(value="/buscadorTrabajos/{numPagina}", method = RequestMethod.GET)
+	public String buscadorTrabajos(@PathVariable("numPagina") int numPagina,@RequestParam("patroBusqueda") String patronBusqueda, ModelMap model) {
+		logger.info("Entramos en buscadorTrabajos");
+		logger.debug("Patrón búsqueda="+patronBusqueda);
+		List<JobBean> listaTrabajos=null;
+		int numTrabajos[]=new int[1];
+		listaTrabajos=JobService.buscarTrabajoPatronPaginado(patronBusqueda, numPagina, numTrabajos);
+		
+		int paginaInicio=1;
+		logger.info("paginaInicio="+paginaInicio);
+		int paginaFinal=numTrabajos[0]/AppConfig.getMaxTrabajosCategoria()+1;
+		logger.info("paginaFinal="+paginaFinal);
+		int paginaActual=numPagina;
+		
+		model.addAttribute("listaTrabajos",listaTrabajos);
+		model.addAttribute("numTrabajos",numTrabajos[0]);
+	    model.addAttribute("beginIndex", paginaInicio);
+	    model.addAttribute("endIndex", paginaFinal);
+	    model.addAttribute("currentIndex", paginaActual);
+	    model.addAttribute("patronBusqueda", patronBusqueda);
+		
+		logger.debug("Número de trabajos="+numTrabajos[0]);
+		logger.info("Salimos en buscadorTrabajos");
+		
+		return "resultadoBusqueda";
+	}
+	
+	@RequestMapping(value="/publicar/{idTrabajo}", method = RequestMethod.POST)
+	public @ResponseBody String publicarTrabajo(@PathVariable("idTrabajo") int idTrabajo, ModelMap model){
+		logger.info("Entramos en publicarTrabajo");
+		logger.debug("Trabajo a publicar="+idTrabajo);
+		JobService.publicarTrabajo(idTrabajo);
+		logger.info("Salimos en publicarTrabajo");
+		return "";
 	}
 
 }

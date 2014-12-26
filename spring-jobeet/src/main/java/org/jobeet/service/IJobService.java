@@ -16,4 +16,6 @@ public interface IJobService {
 	public List<JobBean> getJobByExample(JobeetJob trabajoBuscar);
 	public List<JobBean> buscarTrabajoPatron(String Patron);
 	public JobBean parsearJobeetJob(JobeetJob trabajo);
+	public List<JobBean> buscarTrabajoPatronPaginado(String patronBusqueda, int pagina,int numTrabajo[]);
+	public void publicarTrabajo(int idTrabajo);
 }

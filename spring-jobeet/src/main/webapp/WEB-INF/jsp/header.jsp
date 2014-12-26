@@ -14,8 +14,8 @@
  
             <div class="search">
               <h2>Ask for a job</h2>
-              <form action="/busquedaAjax.htm" method="get">
-                <input type="text" name="keywords"
+              <form action="${pageContext.request.contextPath}/buscadorTrabajos/1" method="get">
+                <input type="text" name="patroBusqueda"
                   id="search_keywords" />
                 <input type="submit" value="search" />
                 <img id="loader" src="${pageContext.request.contextPath}/legacy/images/loader.gif" style="vertical-align: middle; display: none" />

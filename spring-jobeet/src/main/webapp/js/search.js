@@ -9,18 +9,10 @@ $(document).ready(function()
   {
     if (this.value.length >= 3)
     {
- 
-    	//alert("Mayor que 3");
-      //alert("query:"+ this.value + '*');
       $('#loader').show();
-      /*$('#jobs').load(
-        $(this).parents('form').attr('action'),
-        { query: this.value + '*' },
-        	function() { $('#loader').hide(); 
-        	alert("vuelta de ajax"); }
-      );*/
+
       $.ajax({
-          url: "/spring-jobeet/buscadorTrabajos/"+this.value,
+          url: "/spring-jobeet/buscadorTrabajosAjax/"+this.value,
           //force to handle it as text
           type: 'POST', 
           dataType: "text",
@@ -36,13 +28,7 @@ $(document).ready(function()
               $('#loader').hide(); 
           },
 	      fail: function(data) {
-	          
-	          //data downloaded so we call parseJSON function 
-	          //and pass downloaded data
-	          var json = $.parseJSON(data);
-	          //now json variable contains data in json format
-	          //let's display a few items
-	          pagina=resultadoBusqueda(json);
+	    	  var pagina="<div id=\"jobs\">No se han encontrado datos</div>";
 	          $("#jobs").html(pagina);
 	          $('#loader').hide(); 
 	      }
@@ -57,25 +43,33 @@ $(document).ready(function()
 function resultadoBusqueda(data){
 	var html="<div id=\"jobs\">No se han encontrado datos</div>";
 	
-	if(data.length>0){
+	if(data.listaTrabajos.length>0){
 		html="<div class=\"category\"><h1><a href=\"#\">Resultado B&uacute;squeda</a></h1>";
 		html+="<div id=\"jobs\"><table class=\"jobs\">"
 		
-		for(i=0;i<data.length;i++){
+		for(i=0;i<data.listaTrabajos.length;i++){
 			if(i%2==0){
 				html+="<tr class=\"even\">";
 			}else{
 				html+="<tr class=\"oden\">";
 			}
 			
-			html+="<td class=\"location\">"+data[i].location+"</td>";
-			html+="<td class=\"position\"><a href=\"/spring-jobeet/showJob/"+data[0].id+"\">"+data[i].position+"</a></td>";
-			html+="<td class=\"company\">"+data[i].company+"</td>";
+			html+="<td class=\"location\">"+data.listaTrabajos[i].location+"</td>";
+			html+="<td class=\"position\"><a href=\"/spring-jobeet/showJob/"+data.listaTrabajos[i].id+"\">"+data.listaTrabajos[i].position+"</a></td>";
+			html+="<td class=\"company\">"+data.listaTrabajos[i].company+"</td>";
 			
 			html+="</tr>";
 		}
 		
 		html+="</table></div>";
+		
+		//Verificamos si hay que paginar
+		if(data.numTrabajosRestantes>0){
+			html+="<div class=\"more_jobs\">";
+			//Redirigimos a la ventana de búsqueda para mostrar más resultados
+			html+="and <a href=\"/spring-jobeet/buscadorTrabajos/2/?patroBusqueda="+$('#search_keywords').val()+"\">"+data.numTrabajosRestantes+"</a> more...";
+			html+="</div>";
+		}
 	}
 	
 	return html;

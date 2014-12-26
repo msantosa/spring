@@ -68,7 +68,7 @@ public class JobDaoTest extends AbstractTransactionalJUnit4SpringContextTests{
 		
 		trabajo1.setCategory(categoria);
 		
-		jobDAO.addJob(trabajo1);
+		jobDAO.guardarJob(trabajo1);
 		
 		List<JobeetJob> listaJob=jobDAO.listAllJob();
 		

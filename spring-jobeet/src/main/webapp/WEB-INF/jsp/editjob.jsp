@@ -6,10 +6,13 @@ $(document).ready(function()
 	$("#how_to_apply").val("${trabajoEditar.how_to_apply}");
 	$("#type option[value='${trabajoEditar.type}']").attr("selected","selected");
 });
+
 </script>
+<!--<div id="mensaje_emergente" class="flash_ok" >Se ha modificado el trabajo de forma correcta</div>-->
+<div id="mensaje_emergente" hidden></div>
 <div id="job">
-	<h1>NEW JOB</h1>
-	<form:form method="post" action="addJob.html" commandName="trabajo" onsubmit="return validarFormJob()">
+	<h1>EDIT JOB</h1>
+	<form:form method="post" action="editJob.html" commandName="trabajo" onsubmit="return validarFormJob()">
 		<div>
 			<form:label path="category.id">Category Id</form:label> 
 			<form:select path="category.id" items="${listaCategorias}" itemValue="id" itemLabel="name">
@@ -22,17 +25,13 @@ $(document).ready(function()
 	  			<form:options items="${tiposContrato}" />
   			</form:select>
 		</div>
-		<!--<div>
-			<form:label path="type">Type</form:label>
-			<form:input id="type" path="type" value="${trabajoEditar.type}"/>
-		</div>-->
 		<div>
 			<form:label path="company">Company</form:label>
 			<form:input id="company" path="company" value="${trabajoEditar.company}" />
 		</div>
 		<div>
 			<form:label path="logo">Logo</form:label>
-			<form:input id="logo" path="logo" value="${trabajoEditar.logo}"/>
+			<input type="file" id="file" class="fileupload" name="fileupload"  onchange="javascript:cambiarLogo(this.value)" style="margin-top: 0px"/>
 		</div>
 		<div>
 			<form:label path="url">Url</form:label>
@@ -68,7 +67,7 @@ $(document).ready(function()
 			<input type="button" value="Cal" onclick="displayCalendar(document.getElementById('expires_at'),'dd/mm/yyyy hh:ii',this,true)">
 		</div>
 		<div>
-			<input type="submit" value="Añadir">
+			<input type="submit" value="Guardar">
 		</div>
 	</form:form>
 </div>

@@ -6,7 +6,7 @@ import org.jobeet.model.JobeetCategory;
 import org.jobeet.model.JobeetJob;
 
 public interface IJobDao {
-	public String addJob(JobeetJob trabajo);
+	public void guardarJob(JobeetJob trabajo);
 	public void deleteJob(JobeetJob trabajo);
 	public JobeetJob getJobById(int idTrabajo);
 	public List<JobeetJob> listAllJob();
@@ -16,4 +16,6 @@ public interface IJobDao {
 	public int numTrabajosActivosCategoria(JobeetCategory categoria);
 	public boolean validarToken(int idTrabajo, String token);
 	public List<JobeetJob> getJobByExample(JobeetJob trabajoBuscar);
+	public List<JobeetJob> buscarTrabajoPatronPaginado(String patronBusqueda,int tamanioPagina, int numPagina);
+	public int numTrabajosPatron(String patronBusqueda);
 }
