@@ -9,6 +9,7 @@ import org.jobeet.model.JobeetJob;
 
 public interface IJobService {
 	public String addJob(JobeetJob trabajo);
+	public void borrarTrabajo(int idTrabajo);
 	public JobeetJob getJobById(int idJob);
 	public List<JobeetJob> listAllJob();
 	public List<JobeetJob> listarTrabajosActivos();
@@ -18,4 +19,5 @@ public interface IJobService {
 	public JobBean parsearJobeetJob(JobeetJob trabajo);
 	public List<JobBean> buscarTrabajoPatronPaginado(String patronBusqueda, int pagina,int numTrabajo[]);
 	public void publicarTrabajo(int idTrabajo);
+	public void extenderTrabajo(int idTrabajo);
 }

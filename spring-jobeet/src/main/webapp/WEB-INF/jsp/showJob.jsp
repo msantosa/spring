@@ -1,5 +1,4 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
-<div id="mensaje_emergente" hidden></div>
 <div id="job">
 	<h1>${trabajo.company}</h1>
 	<h2>${trabajo.location}</h2>

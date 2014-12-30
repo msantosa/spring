@@ -241,5 +241,23 @@ public class JobController {
 		logger.info("Salimos en publicarTrabajo");
 		return "";
 	}
+	
+	@RequestMapping(value="/extender/{idTrabajo}", method = RequestMethod.POST)
+	public @ResponseBody String extenderTrabajo(@PathVariable("idTrabajo") int idTrabajo, ModelMap model){
+		logger.info("Entramos en publicarTrabajo");
+		logger.debug("Trabajo a publicar="+idTrabajo);
+		JobService.extenderTrabajo(idTrabajo);
+		logger.info("Salimos en publicarTrabajo");
+		return "";
+	}
+	
+	@RequestMapping(value="/borrarTrabajo/{idTrabajo}", method = RequestMethod.POST)
+	public @ResponseBody String borrarTrabajo(@PathVariable("idTrabajo") int idTrabajo, ModelMap model){
+		logger.info("Entramos en borrarTrabajo");
+		logger.debug("Trabajo a borrar="+idTrabajo);
+		JobService.borrarTrabajo(idTrabajo);
+		logger.info("Salimos en borrarTrabajo");
+		return "";
+	}
 
 }

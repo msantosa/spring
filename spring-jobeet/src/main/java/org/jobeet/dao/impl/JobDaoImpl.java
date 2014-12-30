@@ -12,7 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import org.jobeet.dao.IJobDao;
 import org.jobeet.model.JobeetCategory;
 import org.jobeet.model.JobeetJob;
-import org.jobeet.utilidades.JavaSHA1Hash;
+import org.jobeet.utilidades.Utils;
 import org.springframework.stereotype.Repository;
 
 @Repository

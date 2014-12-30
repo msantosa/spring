@@ -13,7 +13,7 @@ import org.jobeet.config.AppConfig;
 import org.jobeet.dao.IJobDao;
 import org.jobeet.model.JobeetJob;
 import org.jobeet.service.IJobService;
-import org.jobeet.utilidades.JavaSHA1Hash;
+import org.jobeet.utilidades.Utils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,14 +56,22 @@ public class JobServiceImpl implements IJobService{
 		token=trabajo.getEmail()+(int)Math.floor(Math.random()*(11111-99999+1)+99999);
 		LOGGER.debug("Token del trabajo="+token);
 		
-		tokenCifrado=JavaSHA1Hash.sha1(token);
+		tokenCifrado=Utils.sha1(token);
 		LOGGER.debug("Token Cifrado="+tokenCifrado);
 		
 		trabajo.setToken(tokenCifrado);
 		
 		getJobDAO().guardarJob(trabajo);
-		LOGGER.info("JobServiceImpl --> Entrada en añadir job");
+		LOGGER.info("JobServiceImpl --> Salida en añadir job");
 		return token;
+	}
+	
+	@Transactional(readOnly=false)
+	public void borrarTrabajo(int idTrabajo){
+		LOGGER.info("JobServiceImpl --> Entrada en borrar job");
+		JobeetJob trabajo=getJobDAO().getJobById(idTrabajo);
+		getJobDAO().deleteJob(trabajo);
+		LOGGER.info("JobServiceImpl --> Salida en borrar job");
 	}
 	
 	@Transactional(readOnly=true)
@@ -89,10 +97,10 @@ public class JobServiceImpl implements IJobService{
 		JobeetJob trabajo=null;
 		
 		LOGGER.debug("El token introducido es:"+token);
-		LOGGER.debug("El token encriptado es:"+ JavaSHA1Hash.sha1(token));
+		LOGGER.debug("El token encriptado es:"+ Utils.sha1(token));
 		
 		
-		if(jobDAO.validarToken(idTrabajo, JavaSHA1Hash.sha1(token))){
+		if(jobDAO.validarToken(idTrabajo, Utils.sha1(token))){
 			LOGGER.info("Se ha validado que el token introducido se corresponde con el trabajo");
 			trabajo=jobDAO.getJobById(idTrabajo);
 		}
@@ -243,5 +251,17 @@ public class JobServiceImpl implements IJobService{
 		LOGGER.info("Guardamos el trabajo modificado");
 		jobDAO.guardarJob(trabajo);
 		LOGGER.info("Salida a publicarTrabajo");
+	}
+	
+	@Transactional(readOnly=false)
+	public void extenderTrabajo(int idTrabajo){
+		LOGGER.info("Entrada a extenderTrabajo");
+		LOGGER.info("Recuperamos el trabajo");
+		JobeetJob trabajo=jobDAO.getJobById(idTrabajo);
+		LOGGER.info("Modificamos la fecha de expiración");
+		trabajo.setExpires_at(Utils.sumarRestarDiasFecha(trabajo.getExpires_at(),AppConfig.getDiasActivos()));
+		LOGGER.info("Guardamos el trabajo modificado");
+		jobDAO.guardarJob(trabajo);
+		LOGGER.info("Salida a extenderTrabajo");
 	}
 }

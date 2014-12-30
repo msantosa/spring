@@ -20,6 +20,7 @@
 		<tiles:insertAttribute name="header" />
 		<div id="content">
 			<div class="content">
+				<div id="mensaje_emergente" hidden="true"></div>
 				<tiles:insertAttribute name="barJobAdmin" />
 				<tiles:insertAttribute name="body" />
 			</div>

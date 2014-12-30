@@ -78,6 +78,7 @@
 		</put-list-attribute>
 				<put-list-attribute name="ListJS">
 			<add-attribute value="/js/jquery.1.10.2.min.js" />
+			<add-attribute value="/js/funciones.js" />
 			<add-attribute value="/js/job.js" />
 		</put-list-attribute>
 	</definition>

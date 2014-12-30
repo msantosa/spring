@@ -48,3 +48,9 @@ function blmostrocult(detalleExc){
 		detalle.style.display='none';
 	}
 }
+
+function mensaje_accion(mensaje,clase_mensaje){
+	$("#mensaje_emergente").html(mensaje);
+	$("#mensaje_emergente").attr("class","flash_"+clase_mensaje);
+	$("#mensaje_emergente").fadeIn();
+}
