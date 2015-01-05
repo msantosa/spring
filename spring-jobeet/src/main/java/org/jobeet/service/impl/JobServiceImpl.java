@@ -1,5 +1,9 @@
 package org.jobeet.service.impl;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -16,6 +20,7 @@ import org.jobeet.service.IJobService;
 import org.jobeet.utilidades.Utils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class JobServiceImpl implements IJobService{
@@ -62,6 +67,58 @@ public class JobServiceImpl implements IJobService{
 		trabajo.setToken(tokenCifrado);
 		
 		getJobDAO().guardarJob(trabajo);
+		LOGGER.info("JobServiceImpl --> Salida en añadir job");
+		return token;
+	}
+	
+	@Transactional(readOnly=false)
+	public String addJob(JobeetJob trabajo,MultipartFile file) throws IOException{
+		LOGGER.info("El identificador del job es "+trabajo.getId());
+		LOGGER.info("El tipo del job es "+trabajo.getType());
+		LOGGER.info("Category="+trabajo.getCategory());
+		
+		LOGGER.info("JobServiceImpl --> Entrada en añadir job");
+		String token="";
+		String tokenCifrado="";
+		
+		java.util.Date dt = new java.util.Date();
+
+		trabajo.setCreated_at(dt);
+		trabajo.setUpdated_at(dt);
+		
+		token=trabajo.getEmail()+(int)Math.floor(Math.random()*(11111-99999+1)+99999);
+		LOGGER.debug("Token del trabajo="+token);
+		
+		tokenCifrado=Utils.sha1(token);
+		LOGGER.debug("Token Cifrado="+tokenCifrado);
+		
+		trabajo.setToken(tokenCifrado);
+		LOGGER.debug("Guardamos el trabajo");
+		getJobDAO().guardarJob(trabajo);
+		
+		if (!file.isEmpty()) {
+			byte[] bytes = file.getBytes();
+			String rootPath = AppConfig.rutaImagenesLogo();
+			File dir = new File(rootPath);
+			if (!dir.exists())
+				dir.mkdirs();
+
+			// Create the file on server
+			File serverFile = new File(dir.getAbsolutePath()+ File.separator + file.getOriginalFilename()+"_"+trabajo.getId());
+			BufferedOutputStream stream = new BufferedOutputStream(
+					new FileOutputStream(serverFile));
+			stream.write(bytes);
+			stream.close();
+
+			LOGGER.info("Server File Location="
+					+ serverFile.getAbsolutePath());
+			
+			trabajo.setLogo(file.getOriginalFilename()+"_"+trabajo.getId());
+		}
+		
+		LOGGER.debug("Actualizamos el logo");
+		getJobDAO().guardarJob(trabajo);
+		
 		LOGGER.info("JobServiceImpl --> Salida en añadir job");
 		return token;
 	}

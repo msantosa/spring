@@ -52,8 +52,7 @@ public class JobController {
 
 	@RequestMapping(value = "/addJob", method = RequestMethod.POST)
 	//public String addJob(@ModelAttribute("trabajo") JobeetJob trabajo, @RequestParam("file") MultipartFile file, BindingResult result) {
-	public String addJob(@ModelAttribute("trabajo") JobeetJob trabajo, @RequestParam("file") MultipartFile file, ModelMap model, BindingResult result){
-		/*CategoryService.addContact(contact);*/
+	/*public String addJob(@ModelAttribute("trabajo") JobeetJob trabajo, @RequestParam("file") MultipartFile file, ModelMap model, BindingResult result){
 		System.out.println("Fichero="+file.getName());
 		System.out.println("Tamanio="+file.getSize());
 		String tokenAcceso="";
@@ -102,6 +101,59 @@ public class JobController {
 			logger.info("Category="+trabajo.getCategory());
 			
 			tokenAcceso=JobService.addJob(trabajo);
+			logger.info("Después de guardar el trabajo");
+		}catch(Exception e){
+			model.addAttribute("exception", e);
+			return "error.page";
+		}
+		return "redirect:/showJob/"+trabajo.getId()+"/"+tokenAcceso;
+	}*/
+	public String addJob(@ModelAttribute("trabajo") JobeetJob trabajo, @RequestParam("file") MultipartFile file, ModelMap model, BindingResult result){
+		System.out.println("Fichero="+file.getName());
+		System.out.println("Tamanio="+file.getSize());
+		String tokenAcceso="";
+		
+		try{
+			
+			new JobValidator().validar(trabajo, result);
+			
+			if(result.hasErrors()){
+				model.addAttribute("mensaje","Se han producido ["+result.getErrorCount()+"] errores al validar el formulario");
+				
+				List<ObjectError> errores=result.getAllErrors();
+		
+				for(ObjectError error : errores){
+					logger.debug("Errores de validación="+error.getDefaultMessage());
+				}
+				model.addAttribute("listaErrores",result.getAllErrors());
+				return "error.page";
+			}
+			
+			/*if (!file.isEmpty()) {
+				byte[] bytes = file.getBytes();
+				String rootPath = AppConfig.rutaImagenesLogo();
+				File dir = new File(rootPath);
+				if (!dir.exists())
+					dir.mkdirs();
+
+				// Create the file on server
+				File serverFile = new File(dir.getAbsolutePath()+ File.separator + file.getOriginalFilename());
+				BufferedOutputStream stream = new BufferedOutputStream(
+						new FileOutputStream(serverFile));
+				stream.write(bytes);
+				stream.close();
+
+				logger.info("Server File Location="
+						+ serverFile.getAbsolutePath());
+				
+				trabajo.setLogo(file.getOriginalFilename());
+			}*/
+			
+			logger.info("El identificador del job es "+trabajo.getId());
+			logger.info("El tipo del job es "+trabajo.getType());
+			logger.info("Category="+trabajo.getCategory());
+			
+			tokenAcceso=JobService.addJob(trabajo,file);
 			logger.info("Después de guardar el trabajo");
 		}catch(Exception e){
 			model.addAttribute("exception", e);

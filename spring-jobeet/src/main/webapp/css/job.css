@@ -95,13 +95,16 @@
   color: red;
 }
 
-
+.recuadro_meta
+{
+	clear: both;
+}
 
 .meta
 {
   float: right;
   color: #77766F;
-  margin-right: 10px;
+  margin-right: 20px;
   font-size: 85%;
 }
 

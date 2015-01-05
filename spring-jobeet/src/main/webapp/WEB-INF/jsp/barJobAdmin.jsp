@@ -7,7 +7,7 @@
 	<input id="diasAdvertencia" type="hidden" value="${diasAdvertencia}">
 	<input id="diasProrroga" type="hidden" value="${diasProrroga}">
 	<h3>Admin</h3>
-	<ul>
+	<ul id="accionesTrabajo">
 		<c:if test="${not trabajo.is_activated}">
 			<li><a id="editar" href="${pageContext.request.contextPath}/editJob/${trabajo.id}">Edit</a></li>
 			<li><a id="publicar" href="#">Publish</a></li>
