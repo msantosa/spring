@@ -53,6 +53,7 @@
 		<put-list-attribute name="ListCss" inherit="true">
 			<add-attribute value="/css/job.css" />
 			<add-attribute value="/css/dhtmlgoodies_calendar.css" />
+			<add-attribute value="/css/dhtmlgoodies_calendar.css" />
 		</put-list-attribute>
 		<put-list-attribute name="ListJS">
 			<add-attribute value="/js/dhtmlgoodies_calendar.js" />
@@ -122,8 +123,12 @@
 	<definition name="indexAdmin" extends="base.definition.admin">
 		<put-attribute name="title" value="Jobeet Admin Interface" />
 		<put-attribute name="body" value="/WEB-INF/jsp/indexAdmin.jsp" />
-		<put-list-attribute name="ListCss" inherit="true">
+		<put-list-attribute name="ListCss">
 			<add-attribute value="/css/admin.css" />
+			<add-attribute value="/css/bootstrap.css" />
+		</put-list-attribute>
+		<put-list-attribute name="ListJS">
+			<add-attribute value="/js/bootstrap.min.js" />
 		</put-list-attribute>
 	</definition>
 

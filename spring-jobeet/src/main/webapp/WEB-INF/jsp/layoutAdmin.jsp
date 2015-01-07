@@ -18,16 +18,15 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>
+			<!--Al usar bootStrap no se puede utilizar h1 directamente
+			<h1>-->
 				<a href="${pageContext.request.contextPath}"> <img src="${pageContext.request.contextPath}/legacy/images/logo.jpg"	alt="Jobeet Job Board" /></a>
-			</h1>
+			<!--</h1>-->
 		</div>
-		 <div id="menu">
-			<ul>
-				<li><a href="#">Jobs</a></li>
-				<li><a href="#">Categories</a></li>
-			</ul>
-		</div>
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#">Categories</a></li>
+			<li><a href="#">Jobs</a></li>
+		</ul>
 		<div id="content">
 			<div class="content">
 				<tiles:insertAttribute name="body" />

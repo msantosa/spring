@@ -1,91 +1,109 @@
-body
-{
-  background: none;
+body {
+	background: none;
 }
 
-#container
-{
-  width: 100%;
-  background: none;
+h1 {
+	display: inline;
 }
 
-#content
-{
-  padding: 25px;
-  padding-top: 0;
+#menu {
+	padding: 10px;
+	padding-left: 20px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #aaa;
+	background-color: #fff;
 }
 
-#menu
-{
-  padding: 10px;
-  padding-left: 20px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #aaa;
-  background-color: #fff;
+#menu li {
+	margin-right: 15px;
+	display: inline;
 }
 
-#menu li
-{
-  margin-right: 15px;
-  display: inline;
+#content h1 {
+	padding: 0;
+	background: transparent;
+	margin-bottom: 20px;
+	font-size: 140%;
+	color: #000;
 }
 
-#content h1
-{
-  padding: 0;
-  background: transparent;
-  margin-bottom: 20px;
-  font-size: 140%;
-  color: #000;
+#footer {
+	clear: both;
+	margin-top: 0;
+	height: auto;
+	font-family: arial, sans-serif;
+	font-size: 80%;
+	float: right;
+	color: #666;
+	background: none;
 }
 
-td, th
-{
-  padding: 7px;
+#footer img {
+	vertical-align: middle;
 }
 
-th
-{
-  font-weight: bold;
+#header {
+	background: url(../legacy/images/bg-header.jpg) repeat-x top;
 }
 
-#footer
-{
-  clear: both;
-  padding: 25px;
-  margin-top: 0;
-  height: auto;
-  font-family: arial,sans-serif;
-  font-size: 80%;
-  float: right;
-  color: #666;
-  background: none;
+#header h1 {
+	width: auto;
 }
 
-#footer img
-{
-  vertical-align: middle;
+.col-sm-6-1 {
+	margin-top: 15px;
 }
 
-#sf_admin_container fieldset h2
-{
-  font-size: 110%;
-  font-family: arial,sans-serif;
-  font-style: italic;
+#titulo {
+	overflow: auto;
 }
 
-.sf_admin_form_field_logo div div
-{
-  margin-left: 120px;
+.edit_icon {
+	background: url(../legacy/images/pencil.png) 6px no-repeat;
+	text-align: left;
+	text-indent: 25px;
+	float: left;
 }
 
-#sf_admin_container .sf_admin_form_field_logo div div label
-{
-  display: inline;
-  float: none;
+.trash_icon {
+	background: url(../legacy/images/trash.png) 6px no-repeat;
+	text-align: left;
+	text-indent: 25px;
+	float: left;
 }
 
-#header h1
-{
-  width: auto;
+.add_icon {
+	/*background: url(../legacy/images/add.png) 6px no-repeat;*/
+	text-align: left;
+	text-indent: 35px;
+	float: right;
+	padding: 5px 0px;
+}
+
+.texto_enlace{
+	display:inline;
+	 margin-left: 4px;
+}
+
+/* Para añadir el texto que se quiera en el enlace antes del que está puesto en HTML
+.add_icon:BEFORE {
+	content: "Añadir"
+}*/
+@media ( max-width :767px) {
+	.texto_enlace{
+		display:none;
+	}
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+	cursor: pointer;
+}
+
+span {
+	font-weight: bold;
 }

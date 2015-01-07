@@ -27,4 +27,7 @@
 			<small> posted on ${trabajo.created_at} </small>
 		</div>
 	</div>
+	<div>
+		<button type="button" class="btn" onclick="history.back()">Volver</button>
+	</div>
 </div>

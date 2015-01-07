@@ -67,7 +67,9 @@ $(document).ready(function()
 			<input type="button" value="Cal" onclick="displayCalendar(document.getElementById('expires_at'),'dd/mm/yyyy hh:ii',this,true)">
 		</div>
 		<div>
-			<input type="submit" value="Guardar">
+			<button type="button" class="btn" onclick="history.back()">Volver</button>
+			<button type="reset" class="btn">Reset</button>
+			<button type="submit" class="btn">Guardar</button>
 		</div>
 	</form:form>
 </div>
