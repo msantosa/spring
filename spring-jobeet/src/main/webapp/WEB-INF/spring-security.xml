@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bean:beans xmlns:bean="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+	<!-- Si se especifica login-proccesing-url, ya no se debe poner en el action del form j_spring_security_check 
+	sino la URL que va a procesar la petición a no se que se indique lo siguiente
+	login-processing-url="/j_spring_security_check"-->
+	<http auto-config="true">
+		<intercept-url pattern="/admin/**" access="ROLE_USER" />
+		<form-login login-page='/login'
+			default-target-url="/admin" 
+			username-parameter="j_username"
+			password-parameter="j_password" 
+			authentication-failure-url="/errorLogin"
+			/>
+		<logout logout-success-url="/login" />
+	</http>
+
+	<authentication-manager>
+		<authentication-provider>
+			<user-service>
+				<user name="admin" password="1234" authorities="ROLE_USER" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+</bean:beans>

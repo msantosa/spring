@@ -58,22 +58,13 @@ h1 {
 	overflow: auto;
 }
 
-.edit_icon {
-	background: url(../legacy/images/pencil.png) 6px no-repeat;
-	text-align: left;
-	text-indent: 25px;
-	float: left;
-}
-
-.trash_icon {
-	background: url(../legacy/images/trash.png) 6px no-repeat;
+.edit_icon, .trash_icon {
 	text-align: left;
 	text-indent: 25px;
 	float: left;
 }
 
 .add_icon {
-	/*background: url(../legacy/images/add.png) 6px no-repeat;*/
 	text-align: left;
 	text-indent: 35px;
 	float: right;
@@ -90,8 +81,8 @@ h1 {
 	content: "Añadir"
 }*/
 @media ( max-width :767px) {
-	.texto_enlace{
-		display:none;
+	.texto_enlace {
+		display: none;
 	}
 }
 

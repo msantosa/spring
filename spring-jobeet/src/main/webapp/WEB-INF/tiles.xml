@@ -109,20 +109,19 @@
 		</put-list-attribute>
 	</definition>
 
+	<definition name="resultadoBusqueda" extends="base.definition">
+		<put-attribute name="title" value="Jobeet - Resultado Búsqueda" />
+		<put-attribute name="body" value="/WEB-INF/jsp/resultadoBusqueda.jsp" />
+		<put-list-attribute name="ListCss" inherit="true">
+			<add-attribute value="/css/jobs.css" />
+		</put-list-attribute>
+	</definition>
+
+<!-- PARTE DE ADMINISTRACION -->
 
 	<definition name="base.definition.admin" template="/WEB-INF/jsp/layoutAdmin.jsp">
 		<put-attribute name="title" value="" />
 		<put-attribute name="body" value="" />
-		<put-list-attribute name="ListCss">
-			<add-attribute value="/css/main.css" />
-		</put-list-attribute>
-		<put-list-attribute name="ListJS">
-		</put-list-attribute>
-	</definition>
-
-	<definition name="indexAdmin" extends="base.definition.admin">
-		<put-attribute name="title" value="Jobeet Admin Interface" />
-		<put-attribute name="body" value="/WEB-INF/jsp/indexAdmin.jsp" />
 		<put-list-attribute name="ListCss">
 			<add-attribute value="/css/admin.css" />
 			<add-attribute value="/css/bootstrap.css" />
@@ -132,11 +131,17 @@
 		</put-list-attribute>
 	</definition>
 
-	<definition name="resultadoBusqueda" extends="base.definition">
-		<put-attribute name="title" value="Jobeet - Resultado Búsqueda" />
-		<put-attribute name="body" value="/WEB-INF/jsp/resultadoBusqueda.jsp" />
+	<definition name="indexAdmin" extends="base.definition.admin">
+		<put-attribute name="title" value="Jobeet Admin Interface" />
+		<put-attribute name="body" value="/WEB-INF/jsp/indexAdmin.jsp" />
 		<put-list-attribute name="ListCss" inherit="true">
-			<add-attribute value="/css/jobs.css" />
+		</put-list-attribute>
+		<put-list-attribute name="ListJS" inherit="true">
 		</put-list-attribute>
 	</definition>
+
+	<!-- Página de Login -->
+	<definition name="loginAdmin" template="/WEB-INF/jsp/login.jsp">
+	</definition>
+	
 </tiles-definitions>
