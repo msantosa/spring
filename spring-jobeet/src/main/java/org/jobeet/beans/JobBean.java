@@ -1,4 +1,4 @@
-package org.jobbet.beans;
+package org.jobeet.beans;
 
 import java.util.Date;
 

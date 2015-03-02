@@ -12,7 +12,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
-import org.jobbet.beans.JobBean;
+import org.jobeet.beans.JobBean;
 import org.jobeet.config.AppConfig;
 import org.jobeet.dao.IJobDao;
 import org.jobeet.model.JobeetJob;

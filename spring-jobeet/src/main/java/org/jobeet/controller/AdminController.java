@@ -46,12 +46,4 @@ public class AdminController {
         model.addAttribute("error", true);
         return "loginAdmin";
     }
-	
-	@RequestMapping(value="/validarLogin")
-	public String validarLogin(ModelMap model){
-		logger.info("Hemos entrado en validarLogin");
-		
-		logger.info("Redirigimos a la ventana de indexAdmin");
-		return "indexAdmin";
-	}
 }

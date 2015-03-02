@@ -1,7 +1,9 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 
-<c:url var="firstUrl" value="/buscadorTrabajos/${currentIndex}/?patroBusqueda=${patronBusqueda}" />
-<c:url var="lastUrl" value="/buscadorTrabajos/${endIndex}/?patroBusqueda=${patronBusqueda}" />
+<c:url var="firstUrl"
+	value="/buscadorTrabajos/${currentIndex}/?patroBusqueda=${patronBusqueda}" />
+<c:url var="lastUrl"
+	value="/buscadorTrabajos/${endIndex}/?patroBusqueda=${patronBusqueda}" />
 <c:url var="prevUrl"
 	value="/buscadorTrabajos/${currentIndex - 1}/?patroBusqueda=${patronBusqueda}" />
 <c:url var="nextUrl"
@@ -10,7 +12,7 @@
 <div id="jobs">
 	<div class="category">
 		<h1>
-			<a href="#">Resultado B&uacute;squeda</a>
+			<a href="#"><spring:message code="label.resultadoBusqueda" /></a>
 		</h1>
 		<c:choose>
 			<c:when test="${not empty listaTrabajos}">
@@ -20,8 +22,7 @@
 					<table class="jobs">
 						<tr class="${loopStatus.index % 2 == 0 ? 'even' : 'odd'}">
 							<td class="location">${trabajo.location}</td>
-							<td class="position"><a
-								href="${pageContext.request.contextPath}/showJob/${trabajo.id}">${trabajo.position}</a></td>
+							<td class="position"><a href="${ctx}/showJob/${trabajo.id}">${trabajo.position}</a></td>
 							<td class="company">${trabajo.company}</td>
 						</tr>
 					</table>
@@ -30,28 +31,27 @@
 				<div class="pagination">
 					<c:choose>
 						<c:when test="${currentIndex == 1}">
-							<a href="#"> <img
-								src="${pageContext.request.contextPath}/legacy/images/first.png"
+							<a href="#"> <img src="${ctx}/legacy/images/first.png"
 								alt="First page" title="First page" />
 							</a>
-							<a href="#"> <img
-								src="${pageContext.request.contextPath}/legacy/images/previous.png"
+							<a href="#"> <img src="${ctx}/legacy/images/previous.png"
 								alt="Previous page" title="Previous page" />
 							</a>
 						</c:when>
 						<c:otherwise>
 							<a href="${firstUrl}"> <img
-								src="${pageContext.request.contextPath}/legacy/images/first.png"
-								alt="First page" title="First page" />
+								src="${ctx}/legacy/images/first.png" alt="First page"
+								title="First page" />
 							</a>
 							<a href="${prevUrl}"> <img
-								src="${pageContext.request.contextPath}/legacy/images/previous.png"
-								alt="Previous page" title="Previous page" />
+								src="${ctx}/legacy/images/previous.png" alt="Previous page"
+								title="Previous page" />
 							</a>
 						</c:otherwise>
 					</c:choose>
 					<c:forEach var="i" begin="${beginIndex}" end="${endIndex}">
-						<c:url var="pageUrl" value="/buscadorTrabajos/${i}/?patroBusqueda=${patronBusqueda}" />
+						<c:url var="pageUrl"
+							value="/buscadorTrabajos/${i}/?patroBusqueda=${patronBusqueda}" />
 						<c:choose>
 							<c:when test="${i == currentIndex}">
 								<c:out value="${i}" />
@@ -63,23 +63,21 @@
 					</c:forEach>
 					<c:choose>
 						<c:when test="${currentIndex == endIndex}">
-							<a href="#"> <img
-								src="${pageContext.request.contextPath}/legacy/images/next.png"
+							<a href="#"> <img src="${ctx}/legacy/images/next.png"
 								alt="Next page" title="Next page" />
 							</a>
-							<a href="#"> <img
-								src="${pageContext.request.contextPath}/legacy/images/last.png"
+							<a href="#"> <img src="${ctx}/legacy/images/last.png"
 								alt="Last page" title="Last page" />
 							</a>
 						</c:when>
 						<c:otherwise>
 							<a href="${nextUrl}"> <img
-								src="${pageContext.request.contextPath}/legacy/images/next.png"
-								alt="Next page" title="Next page" />
+								src="${ctx}/legacy/images/next.png" alt="Next page"
+								title="Next page" />
 							</a>
 							<a href="${lastUrl}"> <img
-								src="${pageContext.request.contextPath}/legacy/images/last.png"
-								alt="Last page" title="Last page" />
+								src="${ctx}/legacy/images/last.png" alt="Last page"
+								title="Last page" />
 							</a>
 						</c:otherwise>
 					</c:choose>

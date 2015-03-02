@@ -216,11 +216,26 @@ body {
 }
 
 #sub_header .search h2 {
-	background: url(../legacy/images/header-job.jpg) no-repeat;
-	height: 23px;
+	/*background: url(../legacy/images/header-job.jpg) no-repeat;*/
+	color: #FFFFFF;
+	font-size: x-large;
+	font-style: normal;
+	font-weight: bold;
+	text-indent: 0px;
+	margin-bottom: 10px;
+	text-transform: uppercase;
+	/*height: 23px;
 	width: 250px;
 	margin-bottom: 7px;
-	margin-top: 5px;
+	margin-top: 5px;*/
+}
+
+.search h2 span{
+	color: #000066;
+	font-size: x-large;
+	font-style: normal;
+	font-weight: bold;
+	margin-bottom: 10px;
 }
 
 #content .content {

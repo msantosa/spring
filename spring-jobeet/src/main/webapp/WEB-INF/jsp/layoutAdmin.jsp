@@ -18,10 +18,11 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<!--Al usar bootStrap no se puede utilizar h1 directamente
+			<!--Al usar bootStrap no se puede utilizar h1 directamente a no ser que se redifina con una clase
 			<h1>-->
 				<a href="${pageContext.request.contextPath}"> <img src="${pageContext.request.contextPath}/legacy/images/logo.jpg"	alt="Jobeet Job Board" /></a>
 			<!--</h1>-->
+			<a class="btn btn-default btn-md" style="float:right; margin: 10px 10px 10px 10px; " href="<c:url value="j_spring_security_logout" />" > Logout</a>
 		</div>
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#">Categories</a></li>

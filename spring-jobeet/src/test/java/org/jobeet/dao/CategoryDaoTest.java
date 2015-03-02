@@ -50,6 +50,8 @@ public class CategoryDaoTest extends AbstractTransactionalJUnit4SpringContextTes
 		System.out.println("Iniciamos el test testCategoryById");
 		System.out.println("Categoria1="+categoryDAO.getCategoryById(1));
 		System.out.println("Categoria999="+categoryDAO.getCategoryById(999));
+		JobeetCategory categoria=categoryDAO.getCategoryById(1);
+		System.out.println("Tamaño lista de categorias="+categoria.getTrabajos().size());
 		System.out.println("Fin el test testCategoryById");
 	}
 

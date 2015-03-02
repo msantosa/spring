@@ -3,7 +3,7 @@ package org.jobeet.service;
 import java.io.IOException;
 import java.util.List;
 
-import org.jobbet.beans.JobBean;
+import org.jobeet.beans.JobBean;
 import org.jobeet.model.JobeetJob;
 import org.springframework.web.multipart.MultipartFile;
 

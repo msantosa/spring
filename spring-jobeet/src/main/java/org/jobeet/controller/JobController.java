@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.jobbet.beans.JobBean;
+import org.jobeet.beans.JobBean;
 import org.jobeet.config.AppConfig;
 import org.jobeet.model.JobeetCategory;
 import org.jobeet.model.JobeetJob;
