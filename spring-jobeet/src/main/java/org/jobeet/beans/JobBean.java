@@ -3,6 +3,7 @@ package org.jobeet.beans;
 import java.util.Date;
 
 import org.jobeet.model.JobeetCategory;
+import javax.validation.constraints.NotNull;;
 
 public class JobBean {
 	private Integer id;
@@ -14,7 +15,8 @@ public class JobBean {
 	private String company;
 
 	private String logo;
-
+	
+	@NotNull
 	private String url;
 
 	private String position;

@@ -356,6 +356,10 @@ body {
 	color: red;
 }
 
+.error_validacion {
+	color: red;
+}
+
 strong {
 	font-weight: bold;
 }

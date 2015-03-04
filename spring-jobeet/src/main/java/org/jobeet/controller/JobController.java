@@ -1,11 +1,8 @@
 package org.jobeet.controller;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -17,6 +14,7 @@ import org.jobeet.service.ICategoryService;
 import org.jobeet.service.IJobService;
 import org.jobeet.validator.JobValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -37,77 +35,23 @@ public class JobController {
 
 	@Autowired
 	private IJobService JobService;
+	
+	@Autowired  
+    private MessageSource messageSource;
 
 	private static final Logger logger = Logger.getLogger(JobController.class);
 	
-	
 	@RequestMapping(value="/newJob", method = RequestMethod.GET)
-	public String newJob(ModelMap model) {
+	public String goNewJob(ModelMap model) {
 		logger.info("Hemos entrado en newJob");
 		List<JobeetCategory> listaCategorias=CategoryService.listAllCategory();
+		//model.addAttribute("trabajo",new JobeetJob());
 		model.addAttribute("trabajo",new JobeetJob());
 		model.addAttribute("listaCategorias", listaCategorias);
 		return "newjob";
 	}
 
-	@RequestMapping(value = "/addJob", method = RequestMethod.POST)
-	//public String addJob(@ModelAttribute("trabajo") JobeetJob trabajo, @RequestParam("file") MultipartFile file, BindingResult result) {
-	/*public String addJob(@ModelAttribute("trabajo") JobeetJob trabajo, @RequestParam("file") MultipartFile file, ModelMap model, BindingResult result){
-		System.out.println("Fichero="+file.getName());
-		System.out.println("Tamanio="+file.getSize());
-		String tokenAcceso="";
-		
-		try{
-			
-			new JobValidator().validar(trabajo, result);
-			
-			if(result.hasErrors()){
-				model.addAttribute("mensaje","Se han producido ["+result.getErrorCount()+"] errores al validar el formulario");
-				
-				List<ObjectError> errores=result.getAllErrors();
-		
-				for(ObjectError error : errores){
-					logger.debug("Errores de validación="+error.getDefaultMessage());
-				}
-				model.addAttribute("listaErrores",result.getAllErrors());
-				return "error.page";
-			}
-			
-			if (!file.isEmpty()) {
-				byte[] bytes = file.getBytes();
-
-				// Creating the directory to store file
-				//String rootPath = System.getProperty("catalina.home");
-				String rootPath = AppConfig.rutaImagenesLogo();
-				File dir = new File(rootPath);
-				if (!dir.exists())
-					dir.mkdirs();
-
-				// Create the file on server
-				File serverFile = new File(dir.getAbsolutePath()+ File.separator + file.getOriginalFilename());
-				BufferedOutputStream stream = new BufferedOutputStream(
-						new FileOutputStream(serverFile));
-				stream.write(bytes);
-				stream.close();
-
-				logger.info("Server File Location="
-						+ serverFile.getAbsolutePath());
-				
-				trabajo.setLogo(file.getOriginalFilename());
-			}
-			
-			logger.info("El identificador del job es "+trabajo.getId());
-			logger.info("El tipo del job es "+trabajo.getType());
-			logger.info("Category="+trabajo.getCategory());
-			
-			tokenAcceso=JobService.addJob(trabajo);
-			logger.info("Después de guardar el trabajo");
-		}catch(Exception e){
-			model.addAttribute("exception", e);
-			return "error.page";
-		}
-		return "redirect:/showJob/"+trabajo.getId()+"/"+tokenAcceso;
-	}*/
+	@RequestMapping(value = "/newJob", method = RequestMethod.POST)
 	public String addJob(@ModelAttribute("trabajo") JobeetJob trabajo, @RequestParam("file") MultipartFile file, ModelMap model, BindingResult result){
 		System.out.println("Fichero="+file.getName());
 		System.out.println("Tamanio="+file.getSize());
@@ -115,7 +59,7 @@ public class JobController {
 		
 		try{
 			
-			new JobValidator().validar(trabajo, result);
+			new JobValidator().validate(trabajo, result);
 			
 			if(result.hasErrors()){
 				model.addAttribute("mensaje","Se han producido ["+result.getErrorCount()+"] errores al validar el formulario");
@@ -126,28 +70,10 @@ public class JobController {
 					logger.debug("Errores de validación="+error.getDefaultMessage());
 				}
 				model.addAttribute("listaErrores",result.getAllErrors());
-				return "error.page";
+				model.addAttribute("listaCategorias", CategoryService.listAllCategory());
+				return "newjob";
+				//return "error.page";
 			}
-			
-			/*if (!file.isEmpty()) {
-				byte[] bytes = file.getBytes();
-				String rootPath = AppConfig.rutaImagenesLogo();
-				File dir = new File(rootPath);
-				if (!dir.exists())
-					dir.mkdirs();
-
-				// Create the file on server
-				File serverFile = new File(dir.getAbsolutePath()+ File.separator + file.getOriginalFilename());
-				BufferedOutputStream stream = new BufferedOutputStream(
-						new FileOutputStream(serverFile));
-				stream.write(bytes);
-				stream.close();
-
-				logger.info("Server File Location="
-						+ serverFile.getAbsolutePath());
-				
-				trabajo.setLogo(file.getOriginalFilename());
-			}*/
 			
 			logger.info("El identificador del job es "+trabajo.getId());
 			logger.info("El tipo del job es "+trabajo.getType());
@@ -200,44 +126,66 @@ public class JobController {
 	}
 
 	@RequestMapping(value="/editJob/{idTrabajo}", method = RequestMethod.GET)
-	public String editJob(@PathVariable("idTrabajo") Integer idTrabajo,ModelMap model) {
+	public String goEditJob(@PathVariable("idTrabajo") Integer idTrabajo,ModelMap model) {
 		logger.info("Hemos entrado en editJob");
 		List<JobeetCategory> listaCategorias=CategoryService.listAllCategory();
 		JobeetJob trabajo=JobService.getJobById(idTrabajo);
 		JobBean trabajoRecuperado=JobService.parsearJobeetJob(trabajo);
 		
 		model.addAttribute("trabajo",new JobeetJob());
-		model.addAttribute("trabajoEditar",trabajoRecuperado);
+		model.addAttribute("trabajoEditar",trabajo);
 		model.addAttribute("listaCategorias", listaCategorias);
 		return "editJob";
+	}
+	
+	@RequestMapping(value="/editJob/{idTrabajo}", method = RequestMethod.POST)
+	public String editJob(@ModelAttribute("trabajo") JobeetJob trabajo, @RequestParam("file") MultipartFile file, ModelMap model, BindingResult result) {
+		String tokenAcceso="";
+		
+		try{
+			
+			new JobValidator().validate(trabajo, result);
+			
+			if(result.hasErrors()){
+				List<ObjectError> errores=result.getAllErrors();
+		
+				for(ObjectError error : errores){
+					logger.debug("Errores de validación="+error.getDefaultMessage());
+				}
+
+				model.addAttribute("trabajo",new JobeetJob());
+				model.addAttribute("trabajoEditar",JobService.getJobById(trabajo.getId()));
+				model.addAttribute("listaCategorias", CategoryService.listAllCategory());
+				model.addAttribute("listaCategorias", CategoryService.listAllCategory());
+				return "editJob";
+				//return "error.page";
+			}
+			
+			logger.info("El identificador del job es "+trabajo.getId());
+			logger.info("El tipo del job es "+trabajo.getType());
+			logger.info("Category="+trabajo.getCategory());
+			
+			//tokenAcceso=JobService.addJob(trabajo,file);
+			logger.info("Después de guardar el trabajo");
+		}catch(Exception e){
+			model.addAttribute("exception", e);
+			return "error.page";
+		}
+		return "redirect:/showJob/"+trabajo.getId()+"/"+tokenAcceso;
 	}
 
 	/*Se devuelve en una lista los tipos de contratos posibles*/
 	@ModelAttribute("tiposContrato")
-	public Map<String,String> listaTipoContratos(){
+	public Map<String,String> listaTipoContratos(Locale loc){
 		HashMap<String,String> tipoContratos=new HashMap<String,String>();
 
-		tipoContratos.put("Media Jornada", "Media Jornada");
-		tipoContratos.put("Jornada Completa", "Jornada Completa");
-		tipoContratos.put("Solo tarde", "Solo tarde");
-		tipoContratos.put("Horario de noche", "Horario de noche");
+		tipoContratos.put(messageSource.getMessage("type.contract1",null,loc), messageSource.getMessage("type.contract1",null,loc));
+		tipoContratos.put(messageSource.getMessage("type.contract2",null,loc), messageSource.getMessage("type.contract2",null,loc));
+		tipoContratos.put(messageSource.getMessage("type.contract3",null,loc), messageSource.getMessage("type.contract3",null,loc));
+		tipoContratos.put(messageSource.getMessage("type.contract4",null,loc), messageSource.getMessage("type.contract4",null,loc));
 
 		return tipoContratos;
 	}
-	
-	/*@RequestMapping(value="/buscadorTrabajosAjax/{patroBusqueda}", method = RequestMethod.POST, produces="application/json")
-	public @ResponseBody List<JobBean> buscadorTrabajosAjax(@PathVariable("patroBusqueda") String patronBusqueda, ModelMap model) {
-		logger.info("Entramos en buscadorTrabajosAjax");
-		logger.info("Recuperamos el listado que cumple los valores introducidos en el filtro");
-		List<JobBean> listaTrabajos=null;
-		//listaTrabajos=JobService.buscarTrabajoPatron(patronBusqueda);
-		int numTrabajos[]=new int[1];
-		listaTrabajos=JobService.buscarTrabajoPatronPaginado(patronBusqueda, 1,numTrabajos);
-		
-		logger.debug("Número de trabajos="+numTrabajos[0]);
-		logger.info("Salimos de buscadorTrabajosAjax");
-		return listaTrabajos;
-	}*/
 	
 	@RequestMapping(value="/buscadorTrabajosAjax/{patroBusqueda}", method = RequestMethod.POST, produces="application/json")
 	public @ResponseBody HashMap<String,Object> buscadorTrabajosAjax(@PathVariable("patroBusqueda") String patronBusqueda, ModelMap model) {

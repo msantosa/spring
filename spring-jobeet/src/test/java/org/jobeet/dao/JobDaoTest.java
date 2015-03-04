@@ -43,6 +43,9 @@ public class JobDaoTest extends AbstractTransactionalJUnit4SpringContextTests{
 		trabajo1.setHow_to_apply("prueba how_to_apply");
 		trabajo1.setToken("prueba Token2");
 		trabajo1.setEmail("prueba@prueba.com");
+		trabajo1.setIs_public(false);
+		trabajo1.setIs_activated(false);
+		
 		
 		java.util.Date dt = new java.util.Date();
 
@@ -57,6 +60,7 @@ public class JobDaoTest extends AbstractTransactionalJUnit4SpringContextTests{
 		
 		try {
 			trabajo1.setExpires_at(sdf.parse(currentTime));
+			trabajo1.setCreated_at(sdf.parse(currentTime));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
