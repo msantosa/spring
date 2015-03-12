@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;;
 public class JobBean {
 	private Integer id;
 
-	private JobeetCategory category;
+	private int idCategory;
 
 	private String type;
 
@@ -49,12 +49,12 @@ public class JobBean {
 		this.id = id;
 	}
 
-	public JobeetCategory getCategory() {
-		return category;
+	public int getIdCategory() {
+		return idCategory;
 	}
 
-	public void setCategory(JobeetCategory category) {
-		this.category = category;
+	public void setIdCategory(int idCategory) {
+		this.idCategory = idCategory;
 	}
 
 	public String getType() {

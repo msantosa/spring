@@ -160,6 +160,17 @@ public class JobServiceImpl implements IJobService{
 	public List<JobeetJob> listAllJob(){
 		return getJobDAO().listAllJob();
 	}
+	
+	@Transactional(readOnly=true)
+	public List<JobBean> listAllJobBean(){
+		List<JobBean> listado=new ArrayList();
+		
+		for(JobeetJob trabajo: getJobDAO().listAllJob()){
+			listado.add(parsearJobeetJob(trabajo));
+		}
+		
+		return listado;
+	}
 
 	@Transactional(readOnly=true)
 	public List<JobeetJob> listarTrabajosActivos(){
@@ -297,7 +308,7 @@ public class JobServiceImpl implements IJobService{
 	public JobBean parsearJobeetJob(JobeetJob trabajoAux){
 		JobBean trabajoBean=new JobBean();
 		trabajoBean.setId(trabajoAux.getId());
-		/*trabajoBean.setCategory(trabajoAux.getCategory());*/
+		trabajoBean.setIdCategory(trabajoAux.getCategory().getId());
 		trabajoBean.setType(trabajoAux.getType());
 		trabajoBean.setCompany(trabajoAux.getCompany());
 		trabajoBean.setLogo(trabajoAux.getLogo());

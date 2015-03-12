@@ -15,6 +15,7 @@ public interface IJobService {
 	public void borrarTrabajo(int idTrabajo);
 	public JobeetJob getJobById(int idJob);
 	public List<JobeetJob> listAllJob();
+	public List<JobBean> listAllJobBean();
 	public List<JobeetJob> listarTrabajosActivos();
 	public JobeetJob getJobValidadoEdicion(int idTrabajo,String token);
 	public List<JobBean> getJobByExample(JobeetJob trabajoBuscar);
