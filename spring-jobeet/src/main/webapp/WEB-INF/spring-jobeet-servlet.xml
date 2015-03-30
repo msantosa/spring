@@ -115,6 +115,10 @@
 	<bean id="jobDAO" class="org.jobeet.dao.impl.JobDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	
+	<bean id="clasePrueba" class="org.jobeet.dao.impl.ClasePrueba">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 
 	<!-- Se definen los beans de los servicios -->
 	<bean id="CategoryService" class="org.jobeet.service.impl.CategoryServiceImpl">

@@ -308,7 +308,8 @@ public class JobServiceImpl implements IJobService{
 	public JobBean parsearJobeetJob(JobeetJob trabajoAux){
 		JobBean trabajoBean=new JobBean();
 		trabajoBean.setId(trabajoAux.getId());
-		trabajoBean.setIdCategory(trabajoAux.getCategory().getId());
+		if(trabajoAux.getCategory()!=null)
+			trabajoBean.setIdCategory(trabajoAux.getCategory().getId());
 		trabajoBean.setType(trabajoAux.getType());
 		trabajoBean.setCompany(trabajoAux.getCompany());
 		trabajoBean.setLogo(trabajoAux.getLogo());

@@ -7,7 +7,7 @@
 	sino la URL que va a procesar la petición a no se que se indique lo siguiente
 	login-processing-url="/j_spring_security_check"-->
 	<http auto-config="true">
-		<intercept-url pattern="/admin/**" access="ROLE_USER" />
+		<intercept-url pattern="/admin/**" access="ADMIN_USER" />
 		<form-login login-page='/login'
 			default-target-url="/admin" 
 			username-parameter="j_username"
@@ -20,7 +20,7 @@
 	<authentication-manager>
 		<authentication-provider>
 			<user-service>
-				<user name="admin" password="1234" authorities="ROLE_USER" />
+				<user name="admin" password="1234" authorities="ADMIN_USER" />
 			</user-service>
 		</authentication-provider>
 	</authentication-manager>
